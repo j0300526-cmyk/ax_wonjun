@@ -1,0 +1,7 @@
+version: axhub/v1
+name: ax-wonjun
+metadata:
+  name: ax_wonjun
+build:
+  deploy_method: static
+  static_output_dir: .
