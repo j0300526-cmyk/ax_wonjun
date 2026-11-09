@@ -175,6 +175,20 @@ README.md        문제·해결·시연·데이터 설명
 - 배포 방식: AXHub static
 - 정적 출력 위치: 저장소 루트
 
+### 프론트엔드 디자인 원칙
+
+프론트엔드의 인터랙션과 모바일 디테일은 [Emil Kowalski의 Skills for Designers and Engineers](https://github.com/emilkowalski/skills)에서 다음 원칙을 참고했습니다.
+
+- 버튼은 누르는 순간 `scale(0.97)`로 반응하고 100~160ms 안에 복귀
+- 진입·상태 변화에는 강한 `ease-out`을 사용하고 반복 동작에는 불필요한 애니메이션을 넣지 않음
+- `prefers-reduced-motion` 사용자의 이동 애니메이션 제거
+- 터치 장치에서 고착되는 hover와 탭 하이라이트 제거
+- `100dvh`, safe-area, 44px 터치 영역으로 모바일 조작감 보강
+- 숫자 변화에는 고정 폭 숫자를 사용해 레이아웃 흔들림 방지
+- 긴 업무명·식별자와 좁은 표에서 넘침이 발생하지 않도록 방어
+
+디자인을 복제한 것이 아니라 해당 저장소의 설계 원칙을 MaterialSwitch AI의 업무 화면에 맞게 적용했습니다.
+
 로컬 실행:
 
 ```bash
