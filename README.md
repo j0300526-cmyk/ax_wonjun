@@ -15,7 +15,7 @@ npm test
 ## 구조
 
 - `src/App.jsx`: React 화면 상태와 탐색
-- `src/components/`: 사이드바, 아이콘, AI 분석 패널
+- `src/components/`: 사이드바, 재사용 UI 프리미티브, 아이콘, AI 분석 패널
 - `src/views/`: 관제센터, 의사결정, 승인 작업, 이력, 데이터 계보
 - `src/lib/copilot.js`: 가상 데이터와 현재 시나리오를 설명하는 규칙 기반 응답
 - `modules/data.js`: 후보, 증빙 및 시연 시나리오
@@ -25,7 +25,7 @@ npm test
 - `scripts/source-data.mjs`, `scripts/check-data.mjs`: 데이터룸 입력 재산출 및 빌드 검증
 - `scripts/build-react.mjs`: esbuild 정적 묶음
 
-UI는 React 19와 [Palantir Blueprint](https://github.com/palantir/blueprint)의 Card, Button, Tag, HTMLTable을 사용합니다. 공급망 관제센터의 어두운 데스크톱 테마는 `src/theme.css`에서 새로 정의했습니다. 표의 검색·정렬·페이지 이동은 TanStack Table, AI 설명 패널의 접근성은 Radix Dialog, 아이콘은 Lucide React를 사용합니다. shadcn/ui와 Vercel Chatbot은 구성 참고용이며 해당 저장소의 코드를 복사하지 않았습니다.
+UI는 React 19와 로컬 `src/components/ui.jsx`의 Button, Badge, Card, Table을 사용합니다. [shadcn/ui](https://github.com/shadcn-ui/ui)의 수정 가능한 컴포넌트 접근을 참고해 이 프로젝트에 맞게 구현했습니다. 분석 패널의 구성은 [Vercel Chatbot](https://github.com/vercel/chatbot)을 참고했으며 생성형 AI 모델은 연결하지 않았습니다. 표의 검색·정렬·페이지 이동에는 TanStack Table, 대화 패널의 접근성에는 Radix Dialog, 아이콘에는 Lucide React를 사용합니다.
 
 ## 판단의 범위
 

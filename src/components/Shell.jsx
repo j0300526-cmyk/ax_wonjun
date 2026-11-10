@@ -1,5 +1,5 @@
 import Icon from './Icon.jsx';
-import { Button, Tag } from '@blueprintjs/core';
+import { Button, Badge } from './ui.jsx';
 
 const nav = [
   ['overview', '관제센터', 'dashboard'],
@@ -10,7 +10,7 @@ const nav = [
 ];
 
 export default function Shell({ children, view, onNavigate, onOpenCopilot, copilotOpen }) {
-  return <div className={`app-shell bp6-dark ${copilotOpen ? 'ai-open' : ''}`} id="appShell">
+  return <div className={`app-shell ${copilotOpen ? 'ai-open' : ''}`} id="appShell">
     <aside className="sidebar" aria-label="워크스페이스 메뉴">
       <div className="brand"><div className="brand-mark">M</div><div className="brand-copy"><strong>MaterialSwitch</strong><span>AI 공급망 관제</span></div></div>
       <div className="workspace-switcher"><div className="workspace-avatar">CV</div><div><strong>Corevia</strong><span>운영 워크스페이스</span></div><Icon name="chevronDown" size={13} /></div>
@@ -19,6 +19,6 @@ export default function Shell({ children, view, onNavigate, onOpenCopilot, copil
       <div className="sidebar-spacer" /><div className="sidebar-status"><div className="status-head"><span className="pulse-dot" /><strong>가상 데이터 시연</strong></div><div className="status-row"><span>기록 기준일</span><b>2026.06.30</b></div><div className="status-row"><span>분석 대상</span><b>SKU 4종</b></div></div>
       <div className="sidebar-user"><div className="user-avatar">Q</div><div><strong>입찰 승인권자</strong><span>입찰 책임자</span></div><Icon name="more" size={16} /></div>
     </aside>
-    <main className="workspace"><header className="topbar"><div className="breadcrumb"><span>Corevia</span><i>/</i><span>Supply operations</span><i>/</i><strong>Material resilience</strong></div><div className="top-actions"><Button className="command-trigger" onClick={onOpenCopilot} aria-expanded={copilotOpen} aria-controls="copilot-panel"><Icon name="search" size={14} /><span>AI 분석 열기</span><kbd>Ctrl K</kbd></Button><Tag className="sync-state"><span className="pulse-dot" />기록 시연판</Tag></div></header><div className="content">{children}</div></main>
+    <main className="workspace"><header className="topbar"><div className="breadcrumb"><span>Corevia</span><i>/</i><span>Supply operations</span><i>/</i><strong>Material resilience</strong></div><div className="top-actions"><Button className="command-trigger" onClick={onOpenCopilot} aria-expanded={copilotOpen} aria-controls="copilot-panel"><Icon name="search" size={14} /><span>AI 분석 열기</span><kbd>Ctrl K</kbd></Button><Badge tone="positive" className="sync-state"><span className="pulse-dot" />기록 시연판</Badge></div></header><div className="content">{children}</div></main>
   </div>;
 }

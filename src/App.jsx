@@ -44,7 +44,7 @@ export default function App() {
   };
 
   const screens = {
-    overview: <Overview state={state} navigate={navigate} demo={demo} />,
+    overview: <Overview state={state} navigate={navigate} demo={demo} openCopilot={() => setCopilotOpen(true)} />,
     workbench: <Workbench state={state} actions={actions} />,
     approvals: <Approvals state={state} actions={actions} />,
     audit: <Audit state={state} />,
