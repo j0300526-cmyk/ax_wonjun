@@ -5,5 +5,8 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node tests/modules.test.mjs"
+  },
+  "dependencies": {
+    "gridjs": "6.2.0"
   }
 }

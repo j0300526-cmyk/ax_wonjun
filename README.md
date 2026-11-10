@@ -167,6 +167,7 @@ app.js           모듈 조립과 첫 렌더링
 modules/actions.js    시나리오·승인·작업 상태 변경
 modules/events.js     고정 화면의 입력 이벤트 연결
 modules/view/          개요·승인 판단·이력 화면 렌더링과 DOM 도구
+modules/view/task-grid.js  실행 대기열의 검색·정렬·완료 처리 연결
 modules/render.js     화면 렌더링 조립
 modules/domain.js     기록 기반 산식과 승인 조건
 modules/state.js      브라우저 시연 상태 저장
@@ -177,6 +178,7 @@ README.md        문제·해결·시연·데이터 설명
 ```
 
 - 상태 저장: 브라우저 `localStorage`
+- UI 패키지: Grid.js 6.2.0 (실행 대기열의 검색·정렬·페이지 이동, 빌드에 로컬 포함)
 - 외부 API와 환경변수: 없음
 - 배포 방식: AXHub static
 - 정적 출력 위치: `dist` (자산 파일은 내용 기반 경로)

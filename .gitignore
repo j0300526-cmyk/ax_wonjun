@@ -8,3 +8,4 @@
 .claude/
 .codex/
 dist/
+node_modules/
