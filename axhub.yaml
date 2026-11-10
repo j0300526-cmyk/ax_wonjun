@@ -4,4 +4,5 @@ metadata:
   name: ax_wonjun
 build:
   deploy_method: static
-  static_output_dir: .
+  static_output_dir: dist
+  build: npm run build
