@@ -1,76 +1,350 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#10271f">
-  <meta name="description" content="공급망 충격 대응형 대체 원료 승인·조달 운영 시스템"><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%2335c481%22/><text x=%2232%22 y=%2243%22 text-anchor=%22middle%22 font-size=%2234%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22%23082018%22>M</text></svg>"><title>MaterialSwitch AI</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101b23">
+  <meta name="description" content="공급망 충격 대응형 대체 원료 승인·조달 운영 시스템">
+  <title>MaterialSwitch AI | 공급망 대응 콘솔</title>
   <style>
-    :root{--ink:#10231d;--muted:#66756f;--line:#dce5df;--bg:#f3f6f2;--panel:#fff;--green:#136c4b;--green2:#e8f4ed;--amber:#b46613;--amber2:#fff4df;--red:#b63e35;--red2:#fff0ee;--blue:#315ea8;--blue2:#eef3ff;--shadow:0 10px 30px rgba(24,50,39,.08)}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Pretendard,"Noto Sans KR",system-ui,-apple-system,sans-serif;letter-spacing:-.02em}button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:244px minmax(0,1fr)}
-    aside{background:#10271f;color:#eef7f1;padding:26px 20px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}.brand{display:flex;gap:11px;align-items:center;font-weight:800;font-size:19px;margin:0 8px 30px}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#35c481;color:#082018;font-weight:900}nav{display:grid;gap:7px}.nav-btn{border:0;background:transparent;color:#a9bdb4;text-align:left;padding:12px 14px;border-radius:10px;font-weight:650}.nav-btn:hover,.nav-btn.active{background:#244238;color:#fff}.nav-btn span{display:inline-block;width:25px;color:#66d89f}.side-note{margin-top:auto;border:1px solid #315244;background:#19352b;border-radius:13px;padding:14px;font-size:12px;color:#bad0c6;line-height:1.55}.side-note strong{display:block;color:#fff;margin-bottom:5px}
-    main{min-width:0}.topbar{height:76px;padding:0 34px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.9);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;backdrop-filter:blur(10px)}.crumb{font-size:13px;color:var(--muted)}.crumb b{color:var(--ink)}.profile{display:flex;gap:10px;align-items:center;font-size:13px}.avatar{width:34px;height:34px;border-radius:50%;background:var(--green2);display:grid;place-items:center;color:var(--green);font-weight:800}.content{max-width:1440px;margin:auto;padding:30px 34px 60px}.view{display:none}.view.active{display:block}.hero{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:23px}.eyebrow{font-size:12px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.08em}.hero h1{font-size:30px;margin:8px 0;letter-spacing:-.04em}.hero p{margin:0;color:var(--muted);line-height:1.55}.run-id{font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:9px 12px;border-radius:9px;white-space:nowrap}
-    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;box-shadow:0 1px 2px rgba(20,45,34,.02)}.kpi{padding:17px 18px}.kpi .label{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}.kpi .value{font-size:25px;font-weight:800;margin:10px 0 3px;letter-spacing:-.03em}.delta{font-size:11px;color:var(--muted)}.pill,.source{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:750;white-space:nowrap}.source.original{background:var(--blue2);color:var(--blue)}.source.mock{background:#f4ecff;color:#7045a1}.source.calc{background:var(--green2);color:var(--green)}.pill.warn{background:var(--amber2);color:var(--amber)}.pill.danger{background:var(--red2);color:var(--red)}.pill.ok{background:var(--green2);color:var(--green)}
-    .grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(360px,.75fr);gap:18px}.section{padding:21px}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:17px}.section h2{font-size:17px;margin:0 0 5px}.section-desc{font-size:12px;color:var(--muted);line-height:1.45}.scenario-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}.scenario-btn{border:1px solid var(--line);background:#fff;padding:9px 11px;border-radius:9px;font-size:12px;color:var(--muted);font-weight:700}.scenario-btn.active{border-color:var(--green);background:var(--green2);color:var(--green)}.control-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.control{padding:15px;background:#f8faf8;border-radius:11px}.control label{display:flex;justify-content:space-between;font-size:12px;font-weight:750;margin-bottom:12px}.control strong{color:var(--green)}input[type=range]{width:100%;accent-color:var(--green)}.primary{border:0;background:var(--green);color:#fff;border-radius:9px;padding:11px 15px;font-weight:750}.primary:hover{background:#0c5a3d}.secondary{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;padding:10px 14px;font-weight:700}.danger-btn{border:1px solid #e6b6b1;background:var(--red2);color:var(--red);border-radius:9px;padding:10px 14px;font-weight:700}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
-    .impact{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.impact-item{border-left:3px solid var(--line);padding:8px 11px}.impact-item.warn{border-color:#e0a242}.impact-item.danger{border-color:var(--red)}.impact-item small{color:var(--muted);display:block;margin-bottom:4px}.impact-item b{font-size:16px}.alert{display:flex;gap:11px;background:var(--amber2);border:1px solid #f0d5a7;padding:13px;border-radius:10px;font-size:12px;line-height:1.45;color:#704416}.alert.danger{background:var(--red2);border-color:#efc4bf;color:#7b2c26}.alert.ok{background:var(--green2);border-color:#bedfcb;color:#155c42}.alert-icon{font-size:16px}.flow{display:flex;align-items:center;gap:5px;overflow:auto;padding:3px 0 15px}.step{font-size:10px;color:var(--muted);padding:7px 9px;border-radius:8px;background:#eef2ef;white-space:nowrap}.step.done{background:var(--green2);color:var(--green);font-weight:700}.step.current{outline:2px solid var(--green);background:#fff;color:var(--green);font-weight:800}.arrow{color:#a9b6b0}
-    .candidate-list{display:grid;gap:10px}.candidate{border:1px solid var(--line);padding:14px;border-radius:11px;display:grid;grid-template-columns:1fr auto;gap:10px;transition:.2s}.candidate:hover{border-color:#9dc7b2}.candidate.selected{border:2px solid var(--green);background:#fbfefc}.candidate h3{font-size:14px;margin:0 0 6px}.candidate-meta{font-size:11px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}.score{font-size:22px;font-weight:850;color:var(--green);text-align:right}.score small{font-size:10px;display:block;color:var(--muted);font-weight:500}.score-bars{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.metric{font-size:9px;color:var(--muted)}.bar{height:4px;background:#e7ece8;border-radius:9px;margin-top:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--green)}.evidence{display:grid;gap:9px;margin:14px 0}.check{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:9px;font-size:12px}.check label{display:flex;align-items:center;gap:9px}.check input{accent-color:var(--green);width:16px;height:16px}.check.optional{background:#fafbfa;color:var(--muted)}.approval-box{padding:17px;background:#f8faf8;border-radius:12px}.approval-box h3{font-size:14px;margin:0 0 7px}.approval-box p{font-size:11px;color:var(--muted);line-height:1.5}.approval-box .actions{justify-content:flex-start}.primary:disabled{background:#aab8b1;cursor:not-allowed}
-    table{width:100%;border-collapse:collapse;font-size:12px}th{text-align:left;color:var(--muted);font-weight:650;border-bottom:1px solid var(--line);padding:10px}td{padding:12px 10px;border-bottom:1px solid #edf1ee}tbody tr:hover{background:#fafcfb}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px}.empty{padding:40px;text-align:center;color:var(--muted);font-size:13px}.log{display:grid}.log-row{display:grid;grid-template-columns:95px 16px 1fr;gap:10px;min-height:60px}.log-time{font-size:10px;color:var(--muted);padding-top:3px}.log-line{position:relative;border-left:1px solid var(--line)}.log-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--green);left:-5px;top:4px}.log-body{font-size:12px}.log-body b{display:block;margin-bottom:4px}.log-body span{color:var(--muted)}.legend{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.citation{padding:15px;border:1px solid var(--line);border-radius:11px;margin-top:10px}.citation b{display:block;font-size:13px;margin-bottom:4px}.citation span{font-size:11px;color:var(--muted);line-height:1.5}.notice{font-size:11px;color:var(--muted);padding-top:12px;line-height:1.5}.toast{position:fixed;right:25px;bottom:25px;background:#10271f;color:#fff;padding:13px 17px;border-radius:10px;box-shadow:var(--shadow);font-size:12px;transform:translateY(100px);opacity:0;transition:.25s;z-index:20}.toast.show{transform:none;opacity:1}
-    @media(max-width:1000px){.app{grid-template-columns:76px 1fr}aside{padding:24px 12px}.brand{margin-left:8px}.brand-name,.nav-label,.side-note{display:none}.nav-btn span{width:auto;font-size:16px}.nav-btn{text-align:center}.grid{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}@media(max-width:650px){.app{display:block}aside{height:auto;position:static;flex-direction:row;align-items:center;padding:10px 14px}.brand{margin:0 16px 0 0}.brand-mark{width:31px;height:31px}nav{display:flex;overflow:auto}.nav-btn{padding:8px}.topbar{height:58px;padding:0 16px}.content{padding:22px 16px}.profile-name{display:none}.hero{display:block}.run-id{display:inline-block;margin-top:14px}.kpis{grid-template-columns:1fr}.control-grid,.impact{grid-template-columns:1fr}.score-bars{grid-template-columns:1fr 1fr}}
-  </style>
-  <style>
-    :root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1)}
-    html{-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}html,body{overscroll-behavior-x:none}.app{min-height:100vh;min-height:100dvh}button,a,[role="button"]{touch-action:manipulation;-webkit-user-select:none;user-select:none}button{transition:transform 140ms var(--ease-out),background-color 160ms ease,border-color 160ms ease,color 160ms ease}button:active:not(:disabled){transform:scale(.97)}button:focus-visible,input:focus-visible{outline:3px solid rgba(53,196,129,.38);outline-offset:2px}.avatar,.brand-mark{flex-shrink:0}.kpi .value,.score,.impact-item b,.run-id{font-variant-numeric:tabular-nums}.hero p,.overview-hero p{max-width:65ch}.nav-btn,.candidate,.card{transition:border-color 180ms ease,background-color 180ms ease,box-shadow 180ms ease,transform 140ms var(--ease-out)}.candidate:active{transform:scale(.99)}.toast{transition:transform 220ms var(--ease-out),opacity 180ms ease}.mono,.log-body,.candidate-meta,td{overflow-wrap:anywhere}#taskTable{overflow-x:auto;-webkit-overflow-scrolling:touch}
-    @media (hover:none){.nav-btn:hover{background:transparent;color:#a9bdb4}.nav-btn.active:hover{background:#244238;color:#fff}.primary:hover{background:var(--green)}.candidate:hover{border-color:var(--line)}.candidate.selected:hover{border-color:var(--green)}tbody tr:hover{background:transparent}}
-    @media (hover:hover) and (pointer:fine){.story-card:hover,.demo-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(24,50,39,.08)}.candidate:hover{box-shadow:0 8px 22px rgba(24,50,39,.06)}}
-    @media (pointer:coarse){button,.nav-btn{min-height:44px}input,select,textarea{font-size:16px}}
-    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.view.active{animation:none}button,.nav-btn,.candidate,.card,.toast{transition-duration:0ms!important}}
-    @media(max-width:650px){aside{padding-top:max(10px,env(safe-area-inset-top));padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.content{padding-bottom:max(60px,env(safe-area-inset-bottom))}.topbar{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}}
-  </style>
-  <style>
-    body{overflow-x:hidden}.nav-btn .nav-label{width:auto}.content,.overview-hero,.overview-hero>*,.risk-panel{min-width:0}.overview-hero{max-width:100%;background:linear-gradient(135deg,#0f2d23 0%,#174f3a 58%,#247c56 100%);color:#fff;border-radius:22px;padding:38px;display:grid;grid-template-columns:1.35fr .65fr;gap:30px;overflow:hidden;position:relative;margin-bottom:18px}.overview-hero:after{content:"";position:absolute;width:360px;height:360px;border:1px solid rgba(255,255,255,.13);border-radius:50%;right:-110px;top:-170px;box-shadow:0 0 0 55px rgba(255,255,255,.035),0 0 0 110px rgba(255,255,255,.025)}.overview-hero .eyebrow{color:#70e0aa}.overview-hero h1{font-size:38px;line-height:1.15;margin:10px 0 14px;letter-spacing:-.05em}.overview-hero p{color:#c9ddd4;max-width:680px}.overview-actions{display:flex;gap:9px;margin-top:24px}.hero-primary{border:0;background:#69dfa7;color:#0b2a1e;padding:12px 16px;border-radius:10px;font-weight:800}.hero-secondary{border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;padding:12px 16px;border-radius:10px;font-weight:750}.risk-panel{align-self:center;position:relative;z-index:1;background:rgba(6,29,20,.42);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;backdrop-filter:blur(8px)}.risk-panel small{color:#9dc8b5}.risk-panel b{font-size:27px;display:block;margin:7px 0}.risk-row{display:flex;justify-content:space-between;gap:10px;border-top:1px solid rgba(255,255,255,.12);padding-top:11px;margin-top:11px;font-size:12px;color:#c7dbd2}.risk-row strong{text-align:right;overflow-wrap:anywhere}.story-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:18px 0}.story-card{padding:18px}.story-num{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--green2);color:var(--green);font-size:12px;font-weight:850;margin-bottom:13px}.story-card h3{font-size:14px;margin:0 0 7px}.story-card p{font-size:11px;color:var(--muted);line-height:1.55;margin:0}.demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.demo-card{padding:18px;position:relative;overflow:hidden}.demo-card h3{font-size:14px;margin:10px 0 7px}.demo-card p{font-size:11px;color:var(--muted);line-height:1.5;min-height:50px}.demo-card button{width:100%;margin-top:7px}.task-action{border:1px solid var(--line);background:#fff;border-radius:7px;padding:6px 9px;font-size:10px;font-weight:700;color:var(--green)}.task-action:disabled{color:var(--muted);background:#f3f5f3;cursor:default}.method-note{display:flex;align-items:center;gap:10px;margin-top:18px;padding:14px 16px;background:#edf5f0;border:1px solid #d1e3d7;border-radius:12px;font-size:11px;color:#446057}.method-note b{color:var(--green)}
-    @media(max-width:1000px){.overview-hero{grid-template-columns:1fr}.story-grid{grid-template-columns:1fr 1fr}.demo-grid{grid-template-columns:1fr}}
-    @media(max-width:650px){aside nav{min-width:0;flex:1}.overview-hero{padding:25px 20px}.overview-hero h1{font-size:29px}.story-grid{grid-template-columns:1fr}.overview-actions{flex-direction:column}.method-note{align-items:flex-start;flex-wrap:wrap}}
+    :root {
+      color-scheme: light;
+      --canvas: #edf1ef; --paper: #fff; --ink: #15242a; --muted: #506168; --line: #d7e0dd;
+      --accent: #006652; --mint: #dbf3eb; --dark: #101b23; --bright: #adf2d4;
+      --amber: #815014; --amber-bg: #fff2dd; --red: #9e3933; --red-bg: #fceae8;
+      font-family: Inter, Pretendard, "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); font-size: 14px; line-height: 1.5; }
+    button, input { font: inherit; }
+    button { cursor: pointer; touch-action: manipulation; }
+    button:disabled { cursor: not-allowed; }
+    :focus-visible { outline: 3px solid #008771; outline-offset: 3px; }
+    h1:focus, main:focus { outline: none; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { letter-spacing: -.04em; }
+    .skip { position: absolute; top: 4px; left: 12px; z-index: 3; padding: 10px; background: white; transform: translateY(-140%); }
+    .skip:focus { transform: none; }
+    .app-header { background: var(--dark); color: white; }
+    .topbar, .navigation, .content { width: min(100% - 80px, 1352px); margin-inline: auto; }
+    .topbar { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .brand { color: white; border: 0; padding: 0; background: transparent; display: flex; align-items: center; gap: 11px; font-weight: 760; font-size: 19px; letter-spacing: -.035em; }
+    .brand small { color: var(--bright); font-size: .75em; }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; color: var(--bright); background: #22353d; border-radius: 9px; }
+    .header-meta, .profile, .environment { display: flex; align-items: center; gap: 9px; }
+    .header-meta { gap: 20px; color: #c7d6d9; font-size: 12px; }
+    .environment i, .eyebrow i, .monitor-kicker i { width: 7px; height: 7px; border-radius: 50%; background: #84e3bb; display: inline-block; }
+    .profile b { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; background: #2a3e46; color: white; }
+    .navigation { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: thin; }
+    .nav-btn { display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; min-height: 48px; color: #b6c5ca; background: transparent; border: 0; border-bottom: 3px solid transparent; padding: 9px 15px; font-weight: 650; }
+    .nav-btn:hover { color: white; background: #1c2b34; }
+    .nav-btn.active { color: var(--bright); background: #23343b; border-bottom-color: var(--bright); }
+    .app-header :focus-visible, .overview-hero :focus-visible { outline-color: var(--bright); outline-offset: -3px; }
+    .content { padding: 32px 0 24px; }
+    .view { display: none; }
+    .view.active { display: block; }
+    .overview-hero { display: grid; grid-template-columns: 1.45fr minmax(0, 1fr); gap: 40px; align-items: center; padding: clamp(24px, 4vw, 56px); background: #143931; color: #fff; border-radius: 16px; overflow: hidden; position: relative; isolation: isolate; }
+    .overview-hero::before { content: ""; position: absolute; z-index: -1; inset: 0 0 0 42%; opacity: .15; background-image: linear-gradient(#a7e9c9 1px, transparent 1px), linear-gradient(90deg, #a7e9c9 1px, transparent 1px); background-size: 28px 28px; mask-image: linear-gradient(90deg, transparent, black); }
+    .eyebrow, .index, .monitor-kicker, .case-date { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 11px; font-weight: 750; letter-spacing: .085em; }
+    .eyebrow { color: var(--accent); }
+    .hero-copy .eyebrow { color: var(--bright); }
+    .eyebrow i { margin-right: 5px; }
+    .hero-copy h1 { font-size: clamp(31px, 4.1vw, 61px); line-height: 1.17; letter-spacing: -.065em; margin: 15px 0 15px; }
+    .hero-copy p { max-width: 49ch; color: #c7e1d7; line-height: 1.75; word-break: keep-all; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 23px; }
+    .hero-primary, .hero-secondary, .primary, .secondary, .danger-btn, .task-action { min-height: 42px; border-radius: 7px; padding: 8px 14px; border: 1px solid transparent; font-weight: 730; }
+    .hero-primary { background: var(--bright); color: #12342a; }
+    .hero-primary:hover { background: #d0fbe8; }
+    .hero-primary span { margin-left: 8px; }
+    .hero-secondary { background: #21483e; color: #e1f6ed; border-color: #537969; }
+    .hero-secondary:hover { background: #2f5b4e; }
+    .hero-monitor { min-width: 0; background: #112f29; border: 1px solid #52796a; border-radius: 12px; padding: 21px; box-shadow: 0 12px 35px #0b231e80; }
+    .monitor-kicker, .monitor-footer { display: flex; align-items: center; justify-content: space-between; gap: 7px; color: #bad8cd; }
+    .monitor-kicker span + span { color: #ffe1ad; white-space: nowrap; }
+    .monitor-kicker i { background: #ffc57a; margin-right: 3px; }
+    .material { display: flex; align-items: baseline; gap: 13px; margin: 12px 0 13px; }
+    .material b { font-size: 55px; letter-spacing: -.09em; line-height: 1; }
+    .material span { color: #bad8cd; }
+    .route { display: flex; align-items: center; gap: 5px; }
+    .route b { padding: 7px 8px; border: 1px solid #476b5d; background: #1e4439; border-radius: 5px; color: #daf4e9; font-family: ui-monospace, monospace; font-size: 11px; }
+    .route span { flex: 1; min-width: 6px; border-top: 1px dashed #85b8a6; }
+    .monitor-footer { margin-top: 17px; padding-top: 14px; border-top: 1px solid #3c5d52; font-size: 12px; }
+    .monitor-footer strong { font-size: 25px; color: var(--bright); line-height: 1; white-space: nowrap; }
+    .monitor-footer small { font-size: 12px; margin-left: 3px; }
+    .collection-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 27px 0 12px; }
+    .collection-head h2, .workflow h2 { font-size: 22px; margin-top: 3px; }
+    .collection-head p { color: var(--muted); font-size: 13px; }
+    .launch-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+    .card { background: var(--paper); border: 1px solid var(--line); border-radius: 11px; min-width: 0; }
+    .launch-card { display: flex; flex-direction: column; gap: 8px; text-align: left; color: var(--ink); padding: 15px; transition: border-color 150ms, box-shadow 150ms; }
+    .launch-card:hover { border-color: #62a58f; box-shadow: 0 5px 15px #15332912; }
+    .launch-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+    .index { color: #526a64; }
+    .launch-card > strong { font-size: 17px; letter-spacing: -.045em; }
+    .launch-detail { color: var(--muted); font-size: 12px; word-break: keep-all; }
+    .launch-link { color: var(--accent); font-size: 12px; font-weight: 750; width: 100%; display: flex; justify-content: space-between; margin-top: auto; padding-top: 7px; }
+    .launch-badge, .pill, .source { display: inline-flex; align-items: center; padding: 3px 7px; border-radius: 5px; font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .launch-badge.normal, .pill.ok, .source.calc { color: var(--accent); background: var(--mint); }
+    .launch-badge.delay, .launch-badge.shortage, .pill.warn { color: var(--amber); background: var(--amber-bg); }
+    .launch-badge.missing, .pill.danger { color: var(--red); background: var(--red-bg); }
+    .source.original { color: #23507c; background: #e5eef9; }
+    .source.mock { color: #633f82; background: #f1eafa; }
+    .workflow { margin-top: 16px; padding: 16px 19px; border: 1px solid var(--line); border-radius: 11px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .workflow ol { display: flex; flex-wrap: wrap; gap: 9px 23px; margin: 0; padding: 0; list-style: none; counter-reset: stage; }
+    .workflow li { counter-increment: stage; font-weight: 650; font-size: 13px; }
+    .workflow li::before { content: "0" counter(stage); color: var(--accent); font: 700 11px ui-monospace, monospace; margin-right: 6px; }
+    .page-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; margin-top: 24px; padding-top: 13px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .page-heading { margin: 5px 0 23px; }
+    .page-heading h1 { font-size: clamp(29px, 4vw, 46px); line-height: 1.2; margin: 5px 0 9px; }
+    .page-heading p, .section-desc { color: var(--muted); }
+    .case-strip { display: flex; align-items: center; flex-wrap: wrap; gap: 7px 13px; padding: 11px 14px; border-radius: 8px; color: #dbe6e7; background: #23353d; margin-bottom: 13px; font-size: 12px; }
+    .case-strip strong { color: white; font-size: 16px; }
+    .case-date { margin-left: auto; color: #c9dcde; }
+    .work-grid, .source-grid { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(0,1fr); align-items: start; gap: 13px; }
+    .work-main { display: grid; min-width: 0; gap: 13px; }
+    .section { padding: 18px; }
+    .section-head { display: flex; align-items: start; justify-content: space-between; gap: 8px; margin-bottom: 13px; }
+    .section-head h2 { font-size: 20px; }
+    .section-head .eyebrow { margin-bottom: 4px; }
+    .section-desc, .notice { font-size: 12px; color: var(--muted); }
+    .scenario-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .scenario-btn { border: 1px solid var(--line); border-radius: 6px; color: var(--muted); background: white; padding: 7px 10px; font-size: 12px; min-height: 36px; font-weight: 700; }
+    .scenario-btn:hover, .scenario-btn.active { color: var(--accent); border-color: #75ab9b; background: var(--mint); }
+    .control-grid, .impact { display: grid; gap: 8px; }
+    .control-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .control { border-radius: 7px; background: #f1f5f3; padding: 10px 12px; }
+    .control label { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; font-size: 12px; font-weight: 670; }
+    .control strong { color: var(--accent); font-size: 18px; }
+    input[type="range"] { display: block; width: 100%; margin: 7px 0 3px; accent-color: var(--accent); }
+    .range-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+    .actions { display: flex; justify-content: flex-end; gap: 7px; flex-wrap: wrap; margin-top: 13px; }
+    .primary { color: white; background: var(--accent); }
+    .primary:hover { background: #004d40; }
+    .primary:disabled { background: #e0e7e4; color: #576560; }
+    .secondary, .task-action { background: white; color: var(--ink); border-color: var(--line); }
+    .secondary:hover, .task-action:hover { background: #edf4f1; }
+    .task-action:disabled { color: var(--muted); }
+    .danger-btn { color: var(--red); border-color: #e6bcb7; background: white; }
+    .danger-btn:hover { background: var(--red-bg); }
+    .impact { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .impact-item { border: 1px solid var(--line); border-top: 3px solid #72a899; padding: 9px; border-radius: 6px; background: #f7faf8; font-variant-numeric: tabular-nums; }
+    .impact-item.warn { border-top-color: #ce8c3d; background: #fffbf2; }
+    .impact-item.danger { border-top-color: #c56a62; background: #fff6f5; }
+    .impact-item small { display: block; color: var(--muted); font-size: 11px; }
+    .impact-item b { display: block; font-size: clamp(14px, 1.8vw, 23px); letter-spacing: -.04em; margin-top: 2px; }
+    .notice { margin-top: 10px; }
+    .candidate-list { display: grid; gap: 7px; }
+    .candidate { text-align: left; color: var(--ink); display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 6px; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 10px 12px; }
+    .candidate:hover, .candidate.selected { border-color: #619d8b; background: #f1faf6; }
+    .candidate.selected { box-shadow: inset 3px 0 var(--accent); }
+    .candidate h3 { font-size: 14px; }
+    .candidate-meta { display: flex; flex-wrap: wrap; gap: 2px 8px; color: var(--muted); font-size: 11px; }
+    .score { text-align: right; color: var(--accent); font-size: 23px; font-weight: 800; line-height: 1.1; }
+    .score small { display: block; font-size: 10px; color: var(--muted); }
+    .score-bars { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; }
+    .metric { font-size: 10px; color: var(--muted); }
+    .bar { background: #dde9e4; height: 4px; margin-top: 3px; border-radius: 6px; overflow: hidden; }
+    .bar i { display: block; height: 100%; background: #328572; }
+    .decision { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 9px; padding: 11px; border-radius: 7px; background: #edf3f1; }
+    .decision span, .decision small { color: var(--muted); font-size: 11px; }
+    .decision strong { font-size: 16px; }
+    .flow { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 5px; margin: 10px 0; }
+    .step { display: flex; align-items: center; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 5px; font-size: 11px; color: var(--muted); }
+    .step b { border-radius: 50%; min-width: 16px; text-align: center; background: #e9eeec; font-size: 9px; }
+    .step.done, .step.current { color: var(--accent); background: #edf9f4; }
+    .step.current { border-color: var(--accent); font-weight: 750; }
+    .alert { display: flex; align-items: start; gap: 7px; padding: 9px 10px; background: var(--amber-bg); color: var(--amber); border-radius: 7px; font-size: 12px; }
+    .alert.ok { background: var(--mint); color: var(--accent); }
+    .alert.danger { background: var(--red-bg); color: var(--red); }
+    .alert-icon { font-weight: 800; }
+    .evidence { display: grid; gap: 4px; margin: 10px 0; }
+    .check { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line); min-height: 37px; }
+    .check label { display: flex; align-items: center; gap: 6px; font-size: 12px; min-height: 36px; }
+    .check input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+    .approval-box { background: #f2f6f4; border-radius: 7px; padding: 12px; }
+    .approval-box h3 { font-size: 15px; margin-bottom: 4px; }
+    .approval-box p { font-size: 12px; color: var(--muted); }
+    .approval-box .actions { justify-content: flex-start; }
+    .text-btn { background: transparent; padding: 8px 0 0; border: 0; color: var(--accent); font-size: 12px; font-weight: 750; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-size: 12px; background: #edf3f1; }
+    tbody tr:hover { background: #f6faf8; }
+    .task-action { white-space: nowrap; font-size: 12px; }
+    .mono, .log-time { font: 12px ui-monospace, monospace; }
+    .empty { padding: 38px 12px; color: var(--muted); text-align: center; background: #f2f6f4; border: 1px dashed #c7d8d1; border-radius: 8px; }
+    .log-row { display: grid; grid-template-columns: 95px 10px minmax(0,1fr); gap: 9px; min-height: 64px; }
+    .log-time { padding-top: 3px; color: var(--muted); }
+    .log-line { border-left: 1px solid var(--line); position: relative; }
+    .log-dot { position: absolute; top: 4px; left: -4px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .log-body { padding-bottom: 12px; }
+    .log-body span, .citation span { display: block; color: var(--muted); font-size: 12px; }
+    .legend { display: flex; gap: 4px; flex-wrap: wrap; }
+    .citation { border-top: 1px solid var(--line); padding: 12px 0 4px; }
+    .citation span { margin-top: 4px; }
+    .toast { position: fixed; inset: auto 18px max(18px, env(safe-area-inset-bottom)) auto; max-width: calc(100% - 36px); z-index: 4; background: var(--dark); color: white; border-radius: 8px; padding: 11px 15px; opacity: 0; transform: translateY(12px); transition: 160ms; pointer-events: none; }
+    .toast.show { opacity: 1; transform: none; }
+    @media (max-width: 950px) {
+      .topbar, .navigation, .content { width: calc(100% - 40px); }
+      .overview-hero { gap: 18px; }
+      .launch-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .work-grid, .source-grid { grid-template-columns: minmax(0,1fr); }
+    }
+    @media (max-width: 620px) {
+      .topbar, .navigation, .content { width: calc(100% - 28px); }
+      .topbar { min-height: 58px; }
+      .brand { font-size: 16px; gap: 6px; }
+      .brand-mark { width: 31px; height: 31px; }
+      .profile { display: none; }
+      .environment { font-size: 10px; gap: 4px; }
+      .nav-btn { padding: 6px 9px; font-size: 12px; min-height: 44px; }
+      .nav-btn svg { width: 15px; height: 15px; }
+      .content { padding-top: 16px; }
+      .overview-hero { grid-template-columns: minmax(0,1fr); padding: 18px; }
+      .hero-copy p { font-size: 13px; }
+      .hero-actions { margin-top: 15px; }
+      .hero-monitor { padding: 13px; }
+      .material b { font-size: 40px; }
+      .collection-head, .workflow { align-items: start; flex-direction: column; }
+      .launch-card, .section { padding: 11px; }
+      .launch-grid { gap: 7px; }
+      .case-date { margin-left: 0; }
+      .log-row { grid-template-columns: 72px 7px minmax(0,1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
   </style>
 </head>
-<body><div class="app">
-  <aside><div class="brand"><div class="brand-mark">M</div><div class="brand-name">MaterialSwitch <span style="color:#62d79c">AI</span></div></div><nav>
-    <button class="nav-btn active" data-view="overview"><span>◆</span><span class="nav-label">서비스 개요</span></button><button class="nav-btn" data-view="workbench"><span>⌁</span><span class="nav-label">의사결정 워크벤치</span></button><button class="nav-btn" data-view="approvals"><span>✓</span><span class="nav-label">승인·후속 작업</span></button><button class="nav-btn" data-view="audit"><span>↺</span><span class="nav-label">감사 이력</span></button><button class="nav-btn" data-view="sources"><span>◫</span><span class="nav-label">데이터·연구 근거</span></button>
-  </nav><div class="side-note"><strong>판단 원칙</strong>AI는 안전성을 확정하지 않습니다. 필수 증빙을 검증하고 승인권자의 결정을 지원합니다.</div></aside>
-  <main><header class="topbar"><div class="crumb">Corevia / 조달 운영 / <b>대체 원료 검토</b></div><div class="profile"><span class="profile-name">품질 승인권자 · 모의 역할</span><div class="avatar">Q</div></div></header><div class="content">
-    <section id="overview" class="view active">
-      <div class="overview-hero"><div><div class="eyebrow">Material resilience operating system</div><h1>공급 충격을<br>승인 가능한 실행안으로.</h1><p>MaterialSwitch AI는 M‑B 공급 차질의 생산·캠페인 영향을 계산하고, 검증된 증빙과 사람 승인을 거쳐 발주와 계획 변경까지 연결합니다.</p><div class="overview-actions"><button class="hero-primary" data-goto="workbench">의사결정 시작하기 →</button><button class="hero-secondary" data-goto="sources">데이터 근거 보기</button></div></div><div class="risk-panel"><small>현재 집중 관리 원료</small><b>M‑B · 특허 활성성분</b><div class="risk-row"><span>공급 구조</span><strong>V‑205 단일 공급</strong></div><div class="risk-row"><span>최저 상품 커버</span><strong>SKU‑1004 · 2.2주</strong></div><div class="risk-row"><span>연결 부서</span><strong>조달 · 품질 · 생산 · Masil</strong></div></div></div>
-      <div class="section-head"><div><h2>흩어진 판단을 하나의 운영 흐름으로</h2><div class="section-desc">추천 보고서에서 끝나지 않고 상태와 업무가 실제로 바뀝니다.</div></div><span class="source calc">End-to-end workflow</span></div>
-      <div class="story-grid"><div class="card story-card"><div class="story-num">01</div><h3>충격을 수치화</h3><p>납기 지연과 공급량 감소가 부족 기간·긴급 비용·캠페인에 미치는 영향을 다시 계산합니다.</p></div><div class="card story-card"><div class="story-num">02</div><h3>후보를 설명 가능하게 비교</h3><p>품질·납기·비용·회복력 네 기준과 가중치를 공개해 추천 이유를 확인합니다.</p></div><div class="card story-card"><div class="story-num">03</div><h3>증빙 없이는 차단</h3><p>규격·시험·규제·샘플 자료가 모두 확인돼야 사람의 승인 단계로 넘어갑니다.</p></div><div class="card story-card"><div class="story-num">04</div><h3>승인을 업무로 전환</h3><p>발주 요청, 생산계획 갱신, Masil 일정 검토를 만들고 완료 상태까지 추적합니다.</p></div></div>
-      <div class="section-head" style="margin-top:26px"><div><h2>3가지 상황 바로 시연</h2><div class="section-desc">평가 조건을 충족하는 정상·변경·예외 흐름입니다.</div></div></div>
-      <div class="demo-grid"><div class="card demo-card"><span class="pill ok">정상</span><h3>시험 통과 후 승인</h3><p>필수 증빙을 확인하고 승인하면 세 부서의 후속 작업이 생성됩니다.</p><button class="secondary" data-demo="normal">정상 시나리오 열기</button></div><div class="card demo-card"><span class="pill warn">조건 변경</span><h3>납기 15일 지연</h3><p>공급 공백과 비용을 재계산하고 회복력이 높은 후보를 다시 평가합니다.</p><button class="secondary" data-demo="delay">지연 시나리오 열기</button></div><div class="card demo-card"><span class="pill danger">예외</span><h3>시험자료 누락</h3><p>필수 자료가 빠지면 승인 버튼을 막고 보완 또는 거절 흐름으로 전환합니다.</p><button class="secondary" data-demo="missing">예외 시나리오 열기</button></div></div>
-      <div class="method-note"><span class="source original">원본</span><span class="source calc">계산</span><span class="source mock">가정·모의</span><span><b>데이터 계보 원칙:</b> 제공 자료로 확인한 사실과 참가자가 만든 후보·규칙을 화면에서 즉시 구분합니다.</span></div>
-    </section>
-    <section id="workbench" class="view"><div class="hero"><div><div class="eyebrow">Supply disruption control tower</div><h1>대체 원료 의사결정 워크벤치</h1><p>M‑B 공급 충격을 계산하고, 증빙이 갖춰진 후보만 승인 흐름으로 보냅니다.</p></div><div class="run-id">분석 기준일 · 2026.06.30</div></div>
-      <div class="kpis"><div class="card kpi"><div class="label">위험 원료 <span class="source original">원본</span></div><div class="value">M‑B</div><div class="delta">해외 · 단일 공급사 V‑205 · 독점</div></div><div class="card kpi"><div class="label">최저 SKU 커버 <span class="source original">원본</span></div><div class="value">2.2주</div><div class="delta">SKU‑1004 · 재고 스냅샷 기준</div></div><div class="card kpi"><div class="label">예상 공급 공백 <span class="source calc">계산</span></div><div class="value" id="gapKpi">0일</div><div class="delta" id="gapCaption">기본 조건에서는 공백 없음</div></div><div class="card kpi"><div class="label">현재 의사결정 <span class="source calc">상태</span></div><div class="value" id="statusKpi" style="font-size:20px">검토 준비</div><div class="delta" id="statusCaption">스트레스 테스트를 실행하세요</div></div></div>
-      <div class="grid"><div><div class="card section"><div class="section-head"><div><h2>공급망 스트레스 테스트</h2><div class="section-desc">논문의 disruption duration·capacity shock를 업무 입력값으로 구현</div></div><span class="source calc">결정론 계산</span></div>
-        <div class="scenario-tabs"><button class="scenario-btn active" data-scenario="normal">정상 · 기본 조건</button><button class="scenario-btn" data-scenario="delay">조건 변경 · 15일 지연</button><button class="scenario-btn" data-scenario="shortage">조건 변경 · 물량 50%</button><button class="scenario-btn" data-scenario="missing">예외 · 증빙 누락</button></div>
-        <div class="control-grid"><div class="control"><label>기존 공급사 납기 지연 <strong id="delayValue">0일</strong></label><input id="delay" type="range" min="0" max="45" value="0"></div><div class="control"><label>공급 가능 물량 <strong id="supplyValue">100%</strong></label><input id="supply" type="range" min="20" max="100" step="5" value="100"></div></div>
-        <div class="impact"><div class="impact-item" id="shortageImpact"><small>예상 부족 기간</small><b id="shortageDays">0일</b></div><div class="impact-item" id="costImpact"><small>긴급조달 비용 변화</small><b id="costChange">+0.0%</b></div><div class="impact-item" id="campaignImpact"><small>Masil 캠페인 영향</small><b id="campaignDelay">영향 없음</b></div></div><div class="actions"><button class="secondary" id="resetBtn">초기화</button><button class="primary" id="runBtn">위험 재계산</button></div></div>
-        <div class="card section" style="margin-top:18px"><div class="section-head"><div><h2>대체 원료 후보 평가</h2><div class="section-desc">품질·납기·비용·회복력을 함께 보는 설명 가능한 다기준 평가</div></div><span class="source mock">모의 후보</span></div><div class="candidate-list" id="candidateList"></div><div class="notice">가중치: 품질 적합성 40% · 납기 25% · 비용 15% · 공급 회복력 20%. 점수는 품질 사용 승인을 대신하지 않습니다.</div></div>
-      </div><div><div class="card section"><div class="section-head"><div><h2>증빙 관문</h2><div class="section-desc">필수 자료가 하나라도 없으면 사용 승인 요청 차단</div></div><span class="pill warn" id="gatePill">확인 필요</span></div><div class="flow" id="flow"></div><div id="gateAlert" class="alert"></div><div class="evidence" id="evidenceList"></div><div class="approval-box"><h3>사용 승인권자 판단</h3><p id="aiSummary"></p><div class="actions"><button class="primary" id="approveBtn" disabled>승인 및 후속 처리</button><button class="danger-btn" id="rejectBtn">승인 거절</button></div></div></div></div></div>
-    </section>
-    <section id="approvals" class="view"><div class="hero"><div><div class="eyebrow">Execution queue</div><h1>승인·후속 작업</h1><p>승인 결과에 따라 발주 요청과 생산·마케팅 작업이 자동 생성됩니다.</p></div></div><div class="card section"><div class="section-head"><div><h2>생성된 업무</h2><div class="section-desc">모의 실행 결과 · 브라우저에 저장</div></div><button class="secondary" id="clearTasks">모의 결과 초기화</button></div><div id="taskTable"></div></div></section>
-    <section id="audit" class="view"><div class="hero"><div><div class="eyebrow">Decision trace</div><h1>감사 이력</h1><p>누가 어떤 근거와 조건으로 판단했는지 추적합니다.</p></div></div><div class="card section"><div class="section-head"><div><h2>의사결정 로그</h2><div class="section-desc">입력 변경, 증빙 확인, 승인과 상태 변경 기록</div></div></div><div class="log" id="auditLog"></div></div></section>
-    <section id="sources" class="view"><div class="hero"><div><div class="eyebrow">Grounding & provenance</div><h1>데이터·연구 근거</h1><p>제공 데이터로 확인한 사실과 참가자가 만든 가정을 명확히 구분합니다.</p></div></div><div class="grid"><div class="card section"><div class="section-head"><div><h2>프로젝트 데이터 계보</h2></div><div class="legend"><span class="source original">원본</span><span class="source calc">계산</span><span class="source mock">가정·모의</span></div></div><table><thead><tr><th>항목</th><th>구분</th><th>사용 방식</th></tr></thead><tbody><tr><td>M‑B / V‑205 / 해외·독점 계약</td><td><span class="source original">원본</span></td><td>단일 공급 의존 위험 신호</td></tr><tr><td>SKU‑1001~1004 재고·운송중 수량</td><td><span class="source original">원본</span></td><td>Masil 영향 기준선</td></tr><tr><td>공급 공백·비용·일정 영향</td><td><span class="source calc">계산</span></td><td>사용자 입력 기반 스트레스 계산</td></tr><tr><td>ALT‑B1~B3 후보·시험자료</td><td><span class="source mock">가정·모의</span></td><td>업무 흐름 시연용 모의 회신</td></tr><tr><td>후보 승인권자와 변경관리 절차</td><td><span class="source mock">가정·모의</span></td><td>과제용 운영 규칙</td></tr></tbody></table><div class="alert danger" style="margin-top:16px"><span class="alert-icon">i</span><div><b>데이터 한계</b><br>원료 입고량과 생산 소비량은 시점·수량 기준이 일치하지 않아 절대 원료 재고로 계산하지 않습니다. 상품 재고 커버와 명시적 시나리오 입력만 사용합니다.</div></div></div>
-        <div class="card section"><div class="section-head"><div><h2>가져온 연구 개념</h2><div class="section-desc">논문은 계산 구조의 근거이며 실제 회사 규정을 대신하지 않습니다.</div></div></div><div class="citation"><b>Disruption-driven replanning</b><span>충격 기간·공급 능력 변화에 따른 서비스 수준과 비용 영향 계산 → 스트레스 테스트에 적용</span></div><div class="citation"><b>Digital supply chain twin</b><span>현재 상태와 가상 충격 상태 비교 → 조건 변경 재계산 워크벤치에 적용</span></div><div class="citation"><b>Resilience-based supplier selection</b><span>비용·품질·납기와 회복 능력 평가 → 후보 점수 체계에 적용</span></div><div class="citation"><b>Explainable AI + MCDM</b><span>블랙박스 자동결정 대신 설명 가능한 기준과 사람의 판단 유지 → 증빙 관문과 승인에 적용</span></div></div></div></section>
-</div></main></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<body>
+
+<a class="skip" href="#main">본문으로 이동</a>
+<header class="app-header">
+  <div class="topbar">
+    <button class="brand" data-goto="overview"><span class="brand-mark"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="m16 3 11 6.5v13L16 29 5 22.5v-13L16 3Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="m5 9.5 11 6.6 11-6.6M16 16v13M10.5 6.3l11 6.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span>MaterialSwitch <small>AI</small></span></button>
+    <div class="header-meta"><span class="environment"><i></i> 시뮬레이션 환경</span><span class="profile"><b>Q</b><span>품질 승인권자</span></span></div>
+  </div>
+  <nav class="navigation" aria-label="주 메뉴"><button type="button" class="nav-btn active" data-view="overview"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>운영 개요</span></button><button type="button" class="nav-btn" data-view="workbench"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18M7 3v6m10 0v6m-7 0v6"/></svg><span>스트레스 테스트</span></button><button type="button" class="nav-btn" data-view="approvals"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="m8 13 3 3 5-6M9 3h6"/></svg><span>승인·후속 작업</span></button><button type="button" class="nav-btn" data-view="audit"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>감사 이력</span></button><button type="button" class="nav-btn" data-view="sources"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></svg><span>데이터·연구 근거</span></button></nav>
+</header>
+<main id="main" tabindex="-1" class="content">
+  <section id="overview" class="view active">
+    <div class="overview-hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><i></i> COREVIA / 공급망 대응 콘솔</div>
+        <h1 tabindex="-1">공급이 흔들릴 때,<br>다음 조달을 결정하다.</h1>
+        <p>M‑B 원료의 공급 차질을 시뮬레이션하고, 대체 후보의 증빙을 검토해 발주·생산·캠페인 후속 작업으로 연결합니다.</p>
+        <div class="hero-actions"><button class="hero-primary" data-goto="workbench">스트레스 테스트 시작 <span aria-hidden="true">↗</span></button><button class="hero-secondary" data-goto="sources">데이터 근거</button></div>
+      </div>
+      <div class="hero-monitor">
+        <div class="monitor-kicker"><span>CASE 01 / 원본 데이터</span><span><i></i> 단일 공급</span></div>
+        <div class="material"><b>M‑B</b><span>특허 활성성분</span></div>
+        <div class="route" aria-label="V-205에서 Corevia를 거쳐 Masil로 연결"><b>V‑205</b><span aria-hidden="true"></span><b>Corevia</b><span aria-hidden="true"></span><b>Masil</b></div>
+        <div class="monitor-footer"><span>SKU‑1004 최저 재고 커버</span><strong>2.2<small>주</small></strong></div>
+      </div>
+    </div>
+    <div class="collection-head"><div><div class="eyebrow">SCENARIO LIBRARY</div><h2>시나리오 라이브러리</h2></div><p>조건을 선택하면 워크벤치에 바로 적용됩니다.</p></div>
+    <div class="launch-grid">
+      <button class="launch-card card" data-demo="normal">
+      <span class="launch-top"><span class="index">01</span><span class="launch-badge normal">정상</span></span>
+      <strong>시험 통과 후 승인</strong><span class="launch-detail">필수 증빙이 확인된 상태에서 조달·생산·Masil 후속 작업을 생성합니다.</span>
+      <span class="launch-link">시나리오 열기 <span aria-hidden="true">↗</span></span>
+    </button>
+      <button class="launch-card card" data-demo="delay">
+      <span class="launch-top"><span class="index">02</span><span class="launch-badge delay">공급 충격</span></span>
+      <strong>납기 15일 지연</strong><span class="launch-detail">납기 지연이 공급 공백, 긴급조달 비용, 캠페인 일정에 미치는 영향을 확인합니다.</span>
+      <span class="launch-link">시나리오 열기 <span aria-hidden="true">↗</span></span>
+    </button>
+      <button class="launch-card card" data-demo="shortage">
+      <span class="launch-top"><span class="index">03</span><span class="launch-badge shortage">공급 충격</span></span>
+      <strong>공급 물량 50%</strong><span class="launch-detail">기존 공급사의 공급 가능 물량이 절반으로 줄어든 조건을 비교합니다.</span>
+      <span class="launch-link">시나리오 열기 <span aria-hidden="true">↗</span></span>
+    </button>
+      <button class="launch-card card" data-demo="missing">
+      <span class="launch-top"><span class="index">04</span><span class="launch-badge missing">승인 차단</span></span>
+      <strong>필수 증빙 누락</strong><span class="launch-detail">납기 15일 지연과 물량 50% 조건을 함께 적용하고 승인 차단을 확인합니다.</span>
+      <span class="launch-link">시나리오 열기 <span aria-hidden="true">↗</span></span>
+    </button>
+    </div>
+    <div class="workflow"><div><span class="eyebrow">WORKFLOW</span><h2>검토부터 실행까지</h2></div><ol><li>영향 계산</li><li>후보 비교</li><li>증빙 확인·승인</li><li>부서별 작업 생성</li></ol></div>
+  </section>
+
+  <section id="workbench" class="view">
+    <header class="page-heading"><div class="eyebrow">01 / SCENARIO WORKBENCH</div><h1 tabindex="-1">공급망 스트레스 테스트</h1><p>공급 조건을 바꾸고, 영향과 대체 원료의 사용 승인 요건을 함께 검토합니다.</p></header>
+    <div class="case-strip"><span class="source original">원본</span><strong>M‑B</strong><span>해외 단일 공급사 V‑205 · 독점</span><span>SKU‑1004 커버 <b>2.2주</b></span><span class="case-date">데이터 기준일 · 2026.06.30</span></div>
+    <div class="work-grid">
+      <div class="work-main">
+        <article class="card section">
+          <div class="section-head"><div><div class="eyebrow">INPUTS / 01</div><h2>공급 충격 조건</h2></div><span class="source calc">시뮬레이션</span></div>
+          <div class="scenario-tabs" aria-label="시나리오 프리셋">
+            <button class="scenario-btn" data-scenario="normal">정상 조건</button><button class="scenario-btn" data-scenario="delay">15일 지연</button><button class="scenario-btn" data-scenario="shortage">물량 50%</button><button class="scenario-btn" data-scenario="missing">증빙 누락</button>
+          </div>
+          <div class="control-grid">
+            <div class="control"><label for="delay">기존 공급사 납기 지연 <strong id="delayValue">0일</strong></label><input id="delay" type="range" min="0" max="45" value="0"><div class="range-labels" aria-hidden="true"><span>0일</span><span>45일</span></div></div>
+            <div class="control"><label for="supply">공급 가능 물량 <strong id="supplyValue">100%</strong></label><input id="supply" type="range" min="20" max="100" step="5" value="100"><div class="range-labels" aria-hidden="true"><span>20%</span><span>100%</span></div></div>
+          </div>
+          <div class="actions"><button class="secondary" id="resetBtn">입력 초기화</button><button class="primary" id="runBtn">영향 계산 기록 <span aria-hidden="true">↗</span></button></div>
+        </article>
+        <article class="card section">
+          <div class="section-head"><div><div class="eyebrow">IMPACT / 02</div><h2>공급 충격 영향</h2></div><span class="source calc">입력값 기반</span></div>
+          <div class="impact">
+            <div class="impact-item" id="shortageImpact"><small>예상 공급 공백</small><b id="shortageDays">0일</b></div>
+            <div class="impact-item" id="costImpact"><small>긴급조달 비용 변화</small><b id="costChange">+0.0%</b></div>
+            <div class="impact-item" id="campaignImpact"><small>Masil 캠페인 영향</small><b id="campaignDelay">영향 없음</b></div>
+          </div>
+          <p class="notice"><b id="gapKpi"></b> · <span id="gapCaption"></span>. 공급 공백과 일정은 시나리오 추정치입니다.</p>
+        </article>
+        <article class="card section">
+          <div class="section-head"><div><div class="eyebrow">CANDIDATES / 03</div><h2>대체 원료 후보 비교</h2><p class="section-desc">검토할 후보를 선택하세요.</p></div><span class="source mock">모의 후보</span></div>
+          <div class="candidate-list" id="candidateList"></div>
+          <p class="notice">평가 가중치 · 품질 40% / 납기 25% / 비용 15% / 회복력 20%</p>
+        </article>
+      </div>
+      <article class="card section review">
+        <div class="section-head"><div><div class="eyebrow">QUALITY REVIEW / 04</div><h2>증빙 확인과 사용 승인</h2></div><span class="pill warn" id="gatePill">확인 필요</span></div>
+        <div class="decision"><span>현재 검토 상태</span><strong id="statusKpi">검토 준비</strong><small id="statusCaption">필수 증빙을 확인하세요</small></div>
+        <div class="flow" id="flow" aria-label="검토 진행 단계"></div>
+        <div id="gateAlert" class="alert"></div><div class="evidence" id="evidenceList"></div>
+        <div class="approval-box"><h3>검토 요약</h3><p id="aiSummary"></p><div class="actions"><button class="primary" id="approveBtn" disabled>사용 승인</button><button class="danger-btn" id="rejectBtn">승인 거절</button></div><button class="text-btn" data-goto="approvals">후속 작업 보기 <span aria-hidden="true">→</span></button></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="approvals" class="view">
+    <header class="page-heading"><div class="eyebrow">02 / EXECUTION QUEUE</div><h1 tabindex="-1">승인·후속 작업</h1><p>사용 승인 또는 거절로 생성된 조달·생산·품질·Masil 업무의 처리 상태를 확인합니다.</p></header>
+    <article class="card section"><div class="section-head"><div><h2>업무 대기열</h2><p class="section-desc">이 브라우저에 저장되는 모의 실행 결과입니다.</p></div><button class="secondary" id="clearTasks">모의 결과 초기화</button></div><div id="taskTable" class="table-scroll" tabindex="0" aria-label="후속 작업 목록"></div></article>
+  </section>
+
+  <section id="audit" class="view">
+    <header class="page-heading"><div class="eyebrow">03 / DECISION HISTORY</div><h1 tabindex="-1">감사 이력</h1><p>시나리오 적용, 증빙 변경, 승인과 후속 작업 처리 내역을 시간순으로 확인합니다.</p></header>
+    <article class="card section"><div class="section-head"><div><h2>의사결정 로그</h2><p class="section-desc">최근 기록부터 최대 20건을 표시합니다.</p></div></div><div class="log" id="auditLog"></div></article>
+  </section>
+
+  <section id="sources" class="view">
+    <header class="page-heading"><div class="eyebrow">04 / DATA & METHODOLOGY</div><h1 tabindex="-1">데이터·연구 근거</h1><p>시연에서 사용한 원본 자료, 계산 지표, 모의 가정을 구분해 보여줍니다.</p></header>
+    <div class="source-grid"><div class="card section"><div class="section-head"><div><h2>프로젝트 데이터 계보</h2></div><div class="legend"><span class="source original">원본</span><span class="source calc">계산</span><span class="source mock">가정·모의</span></div></div><div class="table-scroll" tabindex="0" aria-label="프로젝트 데이터 계보 표"><table><thead><tr><th>항목</th><th>구분</th><th>사용 방식</th></tr></thead><tbody><tr><td>M‑B / V‑205 / 해외·독점 계약</td><td><span class="source original">원본</span></td><td>단일 공급 의존 위험 신호</td></tr><tr><td>SKU‑1001~1004 재고·운송중 수량</td><td><span class="source original">원본</span></td><td>Masil 영향 기준선</td></tr><tr><td>공급 공백·비용·일정 영향</td><td><span class="source calc">계산</span></td><td>사용자 입력 기반 스트레스 계산</td></tr><tr><td>ALT‑B1~B3 후보·시험자료</td><td><span class="source mock">가정·모의</span></td><td>업무 흐름 시연용 모의 회신</td></tr><tr><td>후보 승인권자와 변경관리 절차</td><td><span class="source mock">가정·모의</span></td><td>과제용 운영 규칙</td></tr></tbody></table></div><div class="alert danger" style="margin-top:16px"><span class="alert-icon">i</span><div><b>데이터 한계</b><br>원료 입고량과 생산 소비량은 시점·수량 기준이 일치하지 않아 절대 원료 재고로 계산하지 않습니다. 상품 재고 커버와 명시적 시나리오 입력만 사용합니다.</div></div></div>
+        <div class="card section"><div class="section-head"><div><h2>가져온 연구 개념</h2><div class="section-desc">논문은 계산 구조의 근거이며 실제 회사 규정을 대신하지 않습니다.</div></div></div><div class="citation"><b>Disruption-driven replanning</b><span>충격 기간·공급 능력 변화에 따른 서비스 수준과 비용 영향 계산 → 스트레스 테스트에 적용</span></div><div class="citation"><b>Digital supply chain twin</b><span>현재 상태와 가상 충격 상태 비교 → 조건 변경 재계산 워크벤치에 적용</span></div><div class="citation"><b>Resilience-based supplier selection</b><span>비용·품질·납기와 회복 능력 평가 → 후보 점수 체계에 적용</span></div><div class="citation"><b>Explainable AI + MCDM</b><span>블랙박스 자동결정 대신 설명 가능한 기준과 사람의 판단 유지 → 증빙 관문과 승인에 적용</span></div></div></div>
+  </section>
+  <footer class="page-footer"><span>MaterialSwitch AI</span><span>Corevia · 조달 운영 시뮬레이션</span></footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 const candidates=[{id:'ALT-B1',name:'동등 규격 후보 A',quality:94,lead:86,cost:72,resilience:88,price:12,days:18},{id:'ALT-B2',name:'국내 공급 후보 B',quality:88,lead:96,cost:80,resilience:95,price:8,days:9},{id:'ALT-B3',name:'저비용 후보 C',quality:79,lead:73,cost:96,resilience:68,price:-6,days:28}];
 const evidence=[{id:'spec',label:'성분·규격 비교표',required:true},{id:'test',label:'품질 시험 결과',required:true},{id:'reg',label:'규제·안전성 검토',required:true},{id:'sample',label:'샘플 생산 결과',required:true},{id:'site',label:'공급처 현장 확인',required:false}];
 const initial={delay:0,supply:100,selected:'ALT-B1',checks:{},status:'검토 준비',ran:false,tasks:[],logs:[]};let state=Object.assign({},initial,JSON.parse(localStorage.getItem('materialswitch-state')||'{}'));state.checks=state.checks||{};state.tasks=state.tasks||[];state.logs=state.logs||[];const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 function save(){localStorage.setItem('materialswitch-state',JSON.stringify(state))}function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2300)}function time(){return new Intl.DateTimeFormat('ko-KR',{hour:'2-digit',minute:'2-digit'}).format(new Date())}function log(title,detail){state.logs.unshift({time:time(),title,detail});state.logs=state.logs.slice(0,20);save();renderLog()}
 function impacts(){const shortage=Math.max(0,Math.round(state.delay-(state.supply-20)/8));const cost=Math.max(0,(100-state.supply)*.18+state.delay*.22);return{shortage,cost,campaign:Math.max(0,shortage-5)}}function score(c){const shock=(100-state.supply)/10+state.delay/10;return Math.max(0,Math.min(100,Math.round(c.quality*.4+c.lead*.25+c.cost*.15+c.resilience*.2-shock*(100-c.resilience)/100)))}
-function renderCandidates(){$('#candidateList').innerHTML=candidates.map(c=>`<button class="candidate ${state.selected===c.id?'selected':''}" data-id="${c.id}" aria-pressed="${state.selected===c.id}" style="text-align:left;background:${state.selected===c.id?'#fbfefc':'white'}"><div><h3>${c.id} · ${c.name} <span class="source mock">모의</span></h3><div class="candidate-meta"><span>리드타임 ${c.days}일</span><span>비용 ${c.price>=0?'+':''}${c.price}%</span><span>${c.resilience>=85?'복수 조달 가능':'공급 회복력 확인 필요'}</span></div></div><div class="score">${score(c)}<small>/ 100</small></div><div class="score-bars">${[['품질',c.quality],['납기',c.lead],['비용',c.cost],['회복력',c.resilience]].map(m=>`<div class="metric">${m[0]} ${m[1]}<div class="bar"><i style="width:${m[1]}%"></i></div></div>`).join('')}</div></button>`).join('');$$('.candidate').forEach(e=>e.onclick=()=>{state.selected=e.dataset.id;state.status='후보 선택';save();render();log('후보 변경',`${state.selected} 후보를 검토 대상으로 선택`)})}
-function renderEvidence(){$('#evidenceList').innerHTML=evidence.map(e=>`<div class="check ${e.required?'':'optional'}"><label><input type="checkbox" data-evidence="${e.id}" ${state.checks[e.id]?'checked':''}>${e.label}</label><span class="${e.required?'pill warn':'source mock'}">${e.required?'필수':'확장'}</span></div>`).join('');$$('[data-evidence]').forEach(e=>e.onchange=()=>{state.checks[e.dataset.evidence]=e.checked;state.status='증빙 확인 중';save();renderGate();log('증빙 상태 변경',`${e.parentElement.textContent.trim()} · ${e.checked?'확인':'미확인'}`)})}function ready(){return evidence.filter(e=>e.required).every(e=>state.checks[e.id])}
-function renderGate(){const ok=ready(),c=candidates.find(c=>c.id===state.selected),i=impacts();$('#approveBtn').disabled=!ok;$('#gatePill').className=`pill ${ok?'ok':'warn'}`;$('#gatePill').textContent=ok?'승인 가능':'확인 필요';$('#gateAlert').className=`alert ${ok?'ok':''}`;$('#gateAlert').innerHTML=ok?'<span class="alert-icon">✓</span><div><b>필수 증빙이 모두 확인됐습니다.</b><br>승인권자가 최종 결정을 내릴 수 있습니다.</div>':'<span class="alert-icon">!</span><div><b>승인 전 증빙 확인이 필요합니다.</b><br>누락 자료가 있으면 사용 승인을 차단합니다.</div>';$('#aiSummary').textContent=`AI 요약: ${c.id}는 현재 ${score(c)}점입니다. ${i.shortage?`공급 공백 ${i.shortage}일과 캠페인 ${i.campaign}일 지연 가능성이 있어 대체 조달 검토가 필요합니다.`:'현재 입력 조건에서 즉시 공급 공백은 계산되지 않았습니다.'} ${ok?'필수 증빙은 확인됐으나 최종 안전성 판단은 승인권자에게 있습니다.':'필수 증빙이 누락되어 승인할 수 없습니다.'}`;renderFlow(ok)}
-function renderFlow(ok){const s=['충격 감지','영향 계산','증빙 확인','사람 승인','발주 요청','계획 반영'];let cur=state.status==='승인 완료'?6:state.status==='승인 거절'?3:ok?3:state.ran?2:1;$('#flow').innerHTML=s.map((x,i)=>`${i?'<span class="arrow">›</span>':''}<span class="step ${i<cur?'done':i===cur?'current':''}">${x}</span>`).join('')}
-function renderImpacts(){const i=impacts();$('#delay').value=state.delay;$('#supply').value=state.supply;$('#delayValue').textContent=`${state.delay}일`;$('#supplyValue').textContent=`${state.supply}%`;$('#shortageDays').textContent=`${i.shortage}일`;$('#costChange').textContent=`+${i.cost.toFixed(1)}%`;$('#campaignDelay').textContent=i.campaign?`${i.campaign}일 지연`:'영향 없음';$('#shortageImpact').className=`impact-item ${i.shortage>7?'danger':i.shortage?'warn':''}`;$('#costImpact').className=`impact-item ${i.cost>10?'danger':i.cost?'warn':''}`;$('#campaignImpact').className=`impact-item ${i.campaign?'danger':''}`;$('#gapKpi').textContent=`${i.shortage}일`;$('#gapCaption').textContent=i.shortage?'대체 조달 없을 때 예상':'기본 조건에서는 공백 없음';$('#statusKpi').textContent=state.status;$('#statusCaption').textContent=state.status==='승인 완료'?'후속 작업이 생성됐습니다':state.status==='승인 거절'?'보완·재검토 작업이 생성됐습니다':ready()?'최종 승인 가능':'필수 증빙을 확인하세요'}
+function renderCandidates(){$('#candidateList').innerHTML=candidates.map(c=>`<button class="candidate ${state.selected===c.id?'selected':''}" data-id="${c.id}" aria-pressed="${state.selected===c.id}"><div><h3>${c.id} · ${c.name} <span class="source mock">모의</span></h3><div class="candidate-meta"><span>리드타임 ${c.days}일</span><span>비용 ${c.price>=0?'+':''}${c.price}%</span><span>${c.resilience>=85?'복수 조달 가능':'공급 회복력 확인 필요'}</span></div></div><div class="score">${score(c)}<small>/ 100</small></div><div class="score-bars">${[['품질',c.quality],['납기',c.lead],['비용',c.cost],['회복력',c.resilience]].map(m=>`<div class="metric">${m[0]} ${m[1]}<div class="bar"><i style="width:${m[1]}%"></i></div></div>`).join('')}</div></button>`).join('');$$('.candidate').forEach(e=>e.onclick=()=>{state.selected=e.dataset.id;state.status='후보 선택';save();render();log('후보 변경',`${state.selected} 후보를 검토 대상으로 선택`)})}
+function renderEvidence(){$('#evidenceList').innerHTML=evidence.map(e=>`<div class="check ${e.required?'':'optional'}"><label><input type="checkbox" data-evidence="${e.id}" ${state.checks[e.id]?'checked':''}>${e.label}</label><span class="${e.required?'pill warn':'source mock'}">${e.required?'필수':'확장'}</span></div>`).join('');$$('[data-evidence]').forEach(e=>e.onchange=()=>{state.checks[e.dataset.evidence]=e.checked;state.status='증빙 확인 중';save();clearScenario();renderGate();renderImpacts();log('증빙 상태 변경',`${e.parentElement.textContent.trim()} · ${e.checked?'확인':'미확인'}`)})}function ready(){return evidence.filter(e=>e.required).every(e=>state.checks[e.id])}
+function renderGate(){const ok=ready(),c=candidates.find(c=>c.id===state.selected),i=impacts();$('#approveBtn').disabled=!ok;$('#gatePill').className=`pill ${ok?'ok':'warn'}`;$('#gatePill').textContent=ok?'승인 가능':'확인 필요';$('#gateAlert').className=`alert ${ok?'ok':''}`;$('#gateAlert').innerHTML=ok?'<span class="alert-icon">✓</span><div><b>필수 증빙이 모두 확인됐습니다.</b><br>승인권자가 최종 결정을 내릴 수 있습니다.</div>':'<span class="alert-icon">!</span><div><b>승인 전 증빙 확인이 필요합니다.</b><br>누락 자료가 있으면 사용 승인을 차단합니다.</div>';$('#aiSummary').textContent=`${c.id}는 현재 ${score(c)}점입니다. ${i.shortage?`공급 공백 ${i.shortage}일과 캠페인 ${i.campaign}일 지연 가능성이 있어 대체 조달 검토가 필요합니다.`:'현재 입력 조건에서 즉시 공급 공백은 계산되지 않았습니다.'} ${ok?'필수 증빙은 확인됐으나 최종 안전성 판단은 승인권자에게 있습니다.':'필수 증빙이 누락되어 승인할 수 없습니다.'}`;renderFlow(ok)}
+function renderFlow(ok){const s=['충격 감지','영향 계산','증빙 확인','사람 승인','발주 요청','계획 반영'];let cur=state.status==='승인 완료'?6:state.status==='승인 거절'?3:ok?3:state.ran?2:1;$('#flow').innerHTML=s.map((x,i)=>`<span class="step ${i<cur?'done':i===cur?'current':''}" ${i===cur?'aria-current="step"':''}><b>${i+1}</b>${x}</span>`).join('')}
+function renderImpacts(){const i=impacts();$('#delay').value=state.delay;$('#supply').value=state.supply;$('#delayValue').textContent=`${state.delay}일`;$('#supplyValue').textContent=`${state.supply}%`;$('#shortageDays').textContent=`${i.shortage}일`;$('#costChange').textContent=`+${i.cost.toFixed(1)}%`;$('#campaignDelay').textContent=i.campaign?`${i.campaign}일 지연`:'영향 없음';$('#shortageImpact').className=`impact-item ${i.shortage>7?'danger':i.shortage?'warn':''}`;$('#costImpact').className=`impact-item ${i.cost>10?'danger':i.cost?'warn':''}`;$('#campaignImpact').className=`impact-item ${i.campaign?'danger':''}`;$('#gapKpi').textContent=`${i.shortage}일`;$('#gapCaption').textContent=i.shortage?'대체 조달 없을 때 예상':'현재 조건에서는 공백 없음';$('#statusKpi').textContent=state.status;$('#statusCaption').textContent=state.status==='승인 완료'?'후속 작업이 생성됐습니다':state.status==='승인 거절'?'보완·재검토 작업이 생성됐습니다':ready()?'최종 승인 가능':'필수 증빙을 확인하세요'}
 function renderTasks(){const e=$('#taskTable');if(!state.tasks.length){e.innerHTML='<div class="empty">아직 생성된 작업이 없습니다. 증빙 확인 후 승인하거나 거절해 보세요.</div>';return}e.innerHTML=`<table><thead><tr><th>업무 ID</th><th>담당</th><th>업무</th><th>상태</th><th>근거</th><th>처리</th></tr></thead><tbody>${state.tasks.map(t=>`<tr><td class="mono">${t.id}</td><td>${t.owner}</td><td>${t.title}</td><td><span class="pill ${t.status==='완료'?'ok':'warn'}">${t.status}</span></td><td>${t.basis}</td><td><button class="task-action" data-task-id="${t.id}" ${t.status==='완료'?'disabled':''}>${t.status==='완료'?'완료됨':'완료 처리'}</button></td></tr>`).join('')}</tbody></table>`;$$('[data-task-id]').forEach(b=>b.onclick=()=>{const task=state.tasks.find(t=>t.id===b.dataset.taskId);if(!task||task.status==='완료')return;task.status='완료';save();renderTasks();log('후속 작업 완료',`${task.owner} · ${task.title}`);toast('작업 상태를 완료로 변경했습니다')})}function renderLog(){const e=$('#auditLog');if(!state.logs.length){e.innerHTML='<div class="empty">아직 기록된 의사결정이 없습니다.</div>';return}e.innerHTML=state.logs.map(l=>`<div class="log-row"><div class="log-time">오늘 ${l.time}</div><div class="log-line"><i class="log-dot"></i></div><div class="log-body"><b>${l.title}</b><span>${l.detail}</span></div></div>`).join('')}function syncA11y(){$$('.scenario-btn').forEach(b=>b.setAttribute('aria-pressed',String(b.classList.contains('active'))));$$('.nav-btn').forEach(b=>b.setAttribute('aria-current',b.classList.contains('active')?'page':'false'))}function render(){renderCandidates();renderEvidence();renderGate();renderImpacts();renderTasks();renderLog();syncA11y()}
+function clearScenario(){ $$('.scenario-btn').forEach(b=>b.classList.remove('active')); syncA11y() }
 function setScenario(type){$$('.scenario-btn').forEach(b=>b.classList.toggle('active',b.dataset.scenario===type));if(type==='normal'){state.delay=0;state.supply=100;state.checks={spec:true,test:true,reg:true,sample:true,site:false}}if(type==='delay'){state.delay=15;state.supply=100;state.checks={spec:true,test:true,reg:true,sample:true,site:true}}if(type==='shortage'){state.delay=0;state.supply=50;state.checks={spec:true,test:true,reg:true,sample:true,site:true}}if(type==='missing'){state.delay=15;state.supply=50;state.checks={spec:true,test:false,reg:true,sample:false,site:false}}state.ran=true;state.status=type==='missing'?'증빙 보완 필요':'재평가 완료';save();render();log('시연 시나리오 적용',`${type} 조건 · 지연 ${state.delay}일 · 공급 ${state.supply}%`)}
-function openView(id){$$('.nav-btn').forEach(x=>x.classList.toggle('active',x.dataset.view===id));$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));syncA11y();window.scrollTo({top:0})}$$('.nav-btn').forEach(b=>b.onclick=()=>openView(b.dataset.view));$$('[data-goto]').forEach(b=>b.onclick=()=>openView(b.dataset.goto));$$('[data-demo]').forEach(b=>b.onclick=()=>{setScenario(b.dataset.demo);openView('workbench')});$$('.scenario-btn').forEach(b=>b.onclick=()=>setScenario(b.dataset.scenario));$('#delay').oninput=e=>{state.delay=+e.target.value;renderImpacts();renderCandidates();renderGate()};$('#supply').oninput=e=>{state.supply=+e.target.value;renderImpacts();renderCandidates();renderGate()};
-$('#runBtn').onclick=()=>{state.ran=true;state.status=impacts().shortage?'대체 조달 검토':'재평가 완료';save();render();log('스트레스 테스트 실행',`납기 지연 ${state.delay}일 · 공급 가능 물량 ${state.supply}% · 예상 공백 ${impacts().shortage}일`);toast('위험과 후보 점수를 다시 계산했습니다')};$('#resetBtn').onclick=()=>{state.delay=0;state.supply=100;state.ran=false;state.status='검토 준비';save();render();toast('입력 조건을 초기화했습니다')};
+function openView(id){$$('.nav-btn').forEach(x=>x.classList.toggle('active',x.dataset.view===id));$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));syncA11y();$(`#${id} h1`).focus({preventScroll:true});window.scrollTo({top:0})}$$('.nav-btn').forEach(b=>b.onclick=()=>openView(b.dataset.view));$$('[data-goto]').forEach(b=>b.onclick=()=>openView(b.dataset.goto));$$('[data-demo]').forEach(b=>b.onclick=()=>{setScenario(b.dataset.demo);openView('workbench')});$$('.scenario-btn').forEach(b=>b.onclick=()=>setScenario(b.dataset.scenario));$('#delay').oninput=e=>{state.delay=+e.target.value;clearScenario();renderImpacts();renderCandidates();renderGate()};$('#supply').oninput=e=>{state.supply=+e.target.value;clearScenario();renderImpacts();renderCandidates();renderGate()};
+$('#runBtn').onclick=()=>{state.ran=true;state.status=impacts().shortage?'대체 조달 검토':'재평가 완료';save();render();log('스트레스 테스트 실행',`납기 지연 ${state.delay}일 · 공급 가능 물량 ${state.supply}% · 예상 공백 ${impacts().shortage}일`);toast('위험과 후보 점수를 다시 계산했습니다')};$('#resetBtn').onclick=()=>{clearScenario();state.delay=0;state.supply=100;state.ran=false;state.status='검토 준비';save();render();toast('입력 조건을 초기화했습니다')};
 $('#approveBtn').onclick=()=>{if(!ready())return;if(state.status==='승인 완료'){toast('이미 승인되어 후속 작업이 생성됐습니다');return}const c=candidates.find(x=>x.id===state.selected),s=Date.now().toString().slice(-5);state.status='승인 완료';state.tasks.unshift({id:`PO-RQ-${s}`,owner:'조달팀',title:`${c.id} 대체 원료 발주 요청`,status:'생성',basis:'품질 승인 완료'},{id:`PLAN-${s}`,owner:'생산팀',title:'PL-02 생산계획 갱신',status:'생성',basis:`대체 원료 ${c.id}`},{id:`MKT-${s}`,owner:'Masil 운영팀',title:'SKU-1001~1004 입고·캠페인 일정 검토',status:'생성',basis:`예상 지연 ${impacts().campaign}일`});save();render();log('대체 원료 사용 승인',`${c.id} 승인 · 발주 요청, 생산계획, Masil 영향 검토 작업 자동 생성`);toast('승인 완료 · 후속 작업 3건을 생성했습니다')};$('#rejectBtn').onclick=()=>{const c=candidates.find(x=>x.id===state.selected),s=Date.now().toString().slice(-5);state.status='승인 거절';state.tasks.unshift({id:`QA-${s}`,owner:'품질팀',title:`${c.id} 보완 시험 및 다른 후보 검토`,status:'확인 필요',basis:'사용 승인 거절'});save();render();log('대체 원료 사용 승인 거절',`${c.id} 사용 차단 · 보완 시험 작업 생성`);toast('사용을 차단하고 보완 작업을 생성했습니다')};$('#clearTasks').onclick=()=>{state.tasks=[];state.logs=[];state.status='검토 준비';save();render();toast('모의 실행 결과를 초기화했습니다')};render();
-</script></body></html>
+</script>
+</body>
+</html>
