@@ -41,8 +41,18 @@ function appendAnswer(getState, query) {
 }
 
 export function createCopilot(getState) {
-  const open = () => { $('#aiRail').classList.add('open'); $('#aiInput').focus(); };
-  const close = () => $('#aiRail').classList.remove('open');
+  const shell = $('#appShell');
+  const trigger = $('#commandTrigger');
+  const open = () => {
+    shell.classList.add('ai-open');
+    trigger.setAttribute('aria-expanded', 'true');
+    window.setTimeout(() => $('#aiInput').focus(), 180);
+  };
+  const close = () => {
+    shell.classList.remove('ai-open');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.focus();
+  };
 
   $('#aiForm').onsubmit = event => {
     event.preventDefault();
@@ -52,7 +62,7 @@ export function createCopilot(getState) {
     appendAnswer(getState, value);
   };
   $$('[data-ai-query]').forEach(button => button.onclick = () => appendAnswer(getState, button.dataset.aiQuery));
-  $('#commandTrigger').onclick = open;
+  trigger.onclick = open;
   $('#aiClose').onclick = close;
   document.addEventListener('keydown', event => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); open(); }

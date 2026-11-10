@@ -10,41 +10,41 @@
   <title>MaterialSwitch AI · Supply Control Tower</title>
 </head>
 <body>
-  <div class="app-shell">
+  <div class="app-shell" id="appShell">
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-mark">M</div>
-        <div class="brand-copy"><strong>MaterialSwitch</strong><span>AI Control Tower</span></div>
+        <div class="brand-copy"><strong>MaterialSwitch</strong><span>AI 공급망 관제</span></div>
       </div>
 
       <div class="workspace-switcher">
         <div class="workspace-avatar">CV</div>
-        <div><strong>Corevia</strong><span>Production workspace</span></div>
+        <div><strong>Corevia</strong><span>운영 워크스페이스</span></div>
         <span class="workspace-caret">⌄</span>
       </div>
 
-      <div class="nav-label">OPERATIONS</div>
+      <div class="nav-label">운영</div>
       <nav class="nav" aria-label="주요 메뉴">
-        <button class="nav-btn active" data-view="overview" aria-current="page"><span class="nav-icon" data-icon="dashboard"></span><span>Control tower</span><span class="nav-badge danger">3</span></button>
-        <button class="nav-btn" data-view="workbench"><span class="nav-icon" data-icon="workflow"></span><span>Decision studio</span><span class="nav-badge">1</span></button>
-        <button class="nav-btn" data-view="approvals"><span class="nav-icon" data-icon="approval"></span><span>Approvals</span></button>
-        <button class="nav-btn" data-view="audit"><span class="nav-icon" data-icon="history"></span><span>Decision log</span></button>
+        <button class="nav-btn active" data-view="overview" aria-current="page"><span class="nav-icon" data-icon="dashboard"></span><span>관제센터</span><span class="nav-badge danger">3</span></button>
+        <button class="nav-btn" data-view="workbench"><span class="nav-icon" data-icon="workflow"></span><span>의사결정</span><span class="nav-badge">1</span></button>
+        <button class="nav-btn" data-view="approvals"><span class="nav-icon" data-icon="approval"></span><span>승인·실행</span></button>
+        <button class="nav-btn" data-view="audit"><span class="nav-icon" data-icon="history"></span><span>판단 이력</span></button>
       </nav>
 
-      <div class="nav-label nav-label-secondary">SYSTEM</div>
+      <div class="nav-label nav-label-secondary">시스템</div>
       <nav class="nav" aria-label="시스템 메뉴">
-        <button class="nav-btn" data-view="sources"><span class="nav-icon" data-icon="database"></span><span>Data lineage</span></button>
+        <button class="nav-btn" data-view="sources"><span class="nav-icon" data-icon="database"></span><span>데이터 계보</span></button>
       </nav>
 
       <div class="sidebar-spacer"></div>
       <div class="sidebar-status">
-        <div class="status-head"><span class="pulse-dot"></span><strong>System operational</strong></div>
-        <div class="status-row"><span>Last sync</span><b>방금 전</b></div>
-        <div class="status-row"><span>Sources</span><b>12 / 12</b></div>
+        <div class="status-head"><span class="pulse-dot"></span><strong>정상 운영 중</strong></div>
+        <div class="status-row"><span>마지막 동기화</span><b>방금 전</b></div>
+        <div class="status-row"><span>연결 데이터</span><b>12 / 12</b></div>
       </div>
       <div class="sidebar-user">
         <div class="user-avatar">Q</div>
-        <div><strong>품질 승인권자</strong><span>Quality lead</span></div>
+        <div><strong>품질 승인권자</strong><span>품질 책임자</span></div>
         <span class="nav-icon" data-icon="more"></span>
       </div>
     </aside>
@@ -53,7 +53,7 @@
       <header class="topbar">
         <div class="breadcrumb"><span>Corevia</span><i>/</i><span>Supply operations</span><i>/</i><strong>Material resilience</strong></div>
         <div class="top-actions">
-          <button class="command-trigger" id="commandTrigger" type="button"><span class="inline-icon" data-icon="search"></span><span>검색 또는 AI에게 질문</span><kbd>⌘ K</kbd></button>
+          <button class="command-trigger" id="commandTrigger" type="button" aria-expanded="false"><span class="inline-icon" data-icon="search"></span><span>AI 분석 열기</span><kbd>⌘ K</kbd></button>
           <button class="icon-button" aria-label="알림"><span data-icon="activity"></span><i class="notification-dot"></i></button>
           <div class="sync-state"><span class="pulse-dot"></span>Live</div>
         </div>
@@ -63,7 +63,7 @@
         <section id="overview" class="view active">
           <div class="page-heading">
             <div>
-              <div class="heading-meta"><span class="mono-label">INCIDENT · MAT-047</span><span class="severity critical">HIGH PRIORITY</span></div>
+              <div class="heading-meta"><span class="mono-label">사건 · MAT-047</span><span class="severity critical">긴급 검토</span></div>
               <h1>M‑B 공급 중단 대응</h1>
               <p>해외 단일 공급사 V‑205의 납기 변동이 PL‑02 생산과 Masil SKU 4종에 미치는 영향을 추적합니다.</p>
             </div>
@@ -81,25 +81,25 @@
 
           <div class="metric-grid">
             <article class="metric-card">
-              <div class="metric-top"><span>공급 리스크</span><span class="source original">SOURCE</span></div>
+              <div class="metric-top"><span>공급 리스크</span><span class="source original">원본</span></div>
               <div class="metric-main"><strong>92</strong><span>/ 100</span></div>
               <div class="metric-foot negative"><span>▲ 18</span> 7일 평균 대비</div>
               <svg class="sparkline red" viewBox="0 0 160 36" preserveAspectRatio="none" aria-hidden="true"><path d="M1 29 C18 28 23 20 40 23 S64 28 76 17 S99 24 111 13 S136 15 159 4"/></svg>
             </article>
             <article class="metric-card">
-              <div class="metric-top"><span>최저 재고 커버</span><span class="source original">SOURCE</span></div>
+              <div class="metric-top"><span>최저 재고 커버</span><span class="source original">원본</span></div>
               <div class="metric-main"><strong>2.2</strong><span>주</span></div>
               <div class="metric-foot negative"><span>▼ 0.8주</span> SKU‑1004</div>
               <div class="threshold-track"><i style="width:28%"></i><b style="left:42%"></b></div>
             </article>
             <article class="metric-card">
-              <div class="metric-top"><span>예상 공급 공백</span><span class="source calc">MODEL</span></div>
+              <div class="metric-top"><span>예상 공급 공백</span><span class="source calc">계산</span></div>
               <div class="metric-main"><strong id="overviewGap">0</strong><span>일</span></div>
               <div class="metric-foot" id="overviewGapCaption">기본 시나리오 기준</div>
               <svg class="sparkline blue" viewBox="0 0 160 36" preserveAspectRatio="none" aria-hidden="true"><path d="M1 30 C25 29 34 28 54 25 S82 22 97 22 S121 18 159 15"/></svg>
             </article>
             <article class="metric-card">
-              <div class="metric-top"><span>의사결정 상태</span><span class="source calc">LIVE</span></div>
+              <div class="metric-top"><span>의사결정 상태</span><span class="source calc">상태</span></div>
               <div class="metric-state" id="overviewStatus">검토 준비</div>
               <div class="metric-foot"><span id="overviewEvidence">0 / 4</span> 필수 증빙 확인</div>
               <div class="step-dots" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div>
@@ -109,8 +109,8 @@
           <div class="operations-grid">
             <article class="panel dependency-panel">
               <header class="panel-header">
-                <div><span class="panel-kicker">DEPENDENCY GRAPH</span><h2>공급 충격 전파 경로</h2></div>
-                <div class="panel-tools"><span class="live-label"><i></i>LIVE</span><button class="mini-button">24시간</button><button class="icon-button small" aria-label="더보기"><span data-icon="more"></span></button></div>
+                <div><span class="panel-kicker">공급망 연결</span><h2>공급 충격 전파 경로</h2></div>
+                <div class="panel-tools"><span class="live-label"><i></i>실시간</span><button class="mini-button">24시간</button><button class="icon-button small" aria-label="더보기"><span data-icon="more"></span></button></div>
               </header>
               <div class="dependency-canvas">
                 <div class="canvas-grid"></div>
@@ -128,7 +128,7 @@
             </article>
 
             <article class="panel event-panel">
-              <header class="panel-header"><div><span class="panel-kicker">ATTENTION QUEUE</span><h2>지금 확인할 사건</h2></div><span class="queue-count">3 open</span></header>
+              <header class="panel-header"><div><span class="panel-kicker">우선 확인</span><h2>지금 확인할 사건</h2></div><span class="queue-count">3건</span></header>
               <div class="event-list">
                 <button class="event-row active" data-goto="workbench"><span class="event-severity red"></span><div><strong>V‑205 납기 신뢰도 하락</strong><small>리드타임 편차가 15일을 초과했습니다.</small><span>09:42 · 공급</span></div><span class="row-chevron" data-icon="chevron"></span></button>
                 <button class="event-row" data-demo="missing"><span class="event-severity amber"></span><div><strong>ALT‑B1 시험자료 보완</strong><small>필수 증빙 2건이 아직 확인되지 않았습니다.</small><span>08:15 · 품질</span></div><span class="row-chevron" data-icon="chevron"></span></button>
@@ -138,7 +138,7 @@
             </article>
           </div>
 
-          <div class="section-title"><div><span class="panel-kicker">PLAYBOOKS</span><h2>시나리오 즉시 실행</h2></div><span>입력 변화가 공급·생산·캠페인에 미치는 영향을 다시 계산합니다.</span></div>
+          <div class="section-title"><div><span class="panel-kicker">운영 시나리오</span><h2>시나리오 즉시 실행</h2></div><span>입력 변화가 공급·생산·캠페인에 미치는 영향을 다시 계산합니다.</span></div>
           <div class="playbook-grid">
             <button class="playbook" data-demo="normal"><span class="playbook-icon green" data-icon="shield"></span><div><strong>기본 운영</strong><small>납기 0일 · 공급 100%</small></div><span class="row-chevron" data-icon="chevron"></span></button>
             <button class="playbook" data-demo="delay"><span class="playbook-icon amber" data-icon="clock"></span><div><strong>15일 납기 지연</strong><small>공급 공백과 비용 재계산</small></div><span class="row-chevron" data-icon="chevron"></span></button>
@@ -149,14 +149,14 @@
 
         <section id="workbench" class="view">
           <div class="page-heading compact">
-            <div><div class="heading-meta"><span class="mono-label">DECISION · MAT-047</span><span class="severity running">ANALYSIS READY</span></div><h1>대체 원료 의사결정 스튜디오</h1><p>운영 입력을 조정하고 후보·증빙·실행 경로를 한 화면에서 확정합니다.</p></div>
+            <div><div class="heading-meta"><span class="mono-label">의사결정 · MAT-047</span><span class="severity running">분석 준비됨</span></div><h1>대체 원료 의사결정</h1><p>운영 입력을 조정하고 후보·증빙·실행 경로를 한 화면에서 확정합니다.</p></div>
             <div class="heading-actions"><span class="as-of">기준일 2026.06.30</span><button class="button ghost" id="resetBtn">입력 초기화</button><button class="button primary" id="runBtn"><span data-icon="sparkles"></span>분석 실행</button></div>
           </div>
 
           <div class="studio-grid">
             <div class="studio-main">
               <article class="panel scenario-panel">
-                <header class="panel-header"><div><span class="panel-kicker">STRESS TEST</span><h2>운영 시나리오</h2></div><span class="source calc">DETERMINISTIC</span></header>
+                <header class="panel-header"><div><span class="panel-kicker">스트레스 테스트</span><h2>운영 시나리오</h2></div><span class="source calc">결정론 계산</span></header>
                 <div class="scenario-tabs"><button class="scenario-btn active" data-scenario="normal">기본 조건</button><button class="scenario-btn" data-scenario="delay">15일 지연</button><button class="scenario-btn" data-scenario="shortage">물량 50%</button><button class="scenario-btn" data-scenario="missing">증빙 누락</button></div>
                 <div class="control-grid">
                   <div class="control"><div class="control-head"><label for="delay">기존 공급사 납기 지연</label><strong id="delayValue">0일</strong></div><input id="delay" type="range" min="0" max="45" value="0"><div class="range-labels"><span>0일</span><span>45일</span></div></div>
@@ -176,7 +176,7 @@
               </article>
 
               <article class="panel candidate-panel">
-                <header class="panel-header"><div><span class="panel-kicker">CANDIDATE RANKING</span><h2>대체 원료 후보</h2></div><div class="weight-note">품질 40 · 납기 25 · 비용 15 · 회복력 20</div></header>
+                <header class="panel-header"><div><span class="panel-kicker">후보 순위</span><h2>대체 원료 후보</h2></div><div class="weight-note">품질 40 · 납기 25 · 비용 15 · 회복력 20</div></header>
                 <div class="candidate-head"><span>후보</span><span>품질</span><span>납기</span><span>비용</span><span>회복력</span><span>종합점수</span></div>
                 <div class="candidate-list" id="candidateList"></div>
                 <div class="panel-note"><span data-icon="shield"></span>점수는 설명 가능한 우선순위이며 품질 승인이나 안전성 확정을 대신하지 않습니다.</div>
@@ -185,38 +185,38 @@
 
             <div class="studio-side">
               <article class="panel status-panel">
-                <header class="panel-header"><div><span class="panel-kicker">DECISION STATE</span><h2>현재 판단</h2></div><span class="pill warn" id="gatePill">확인 필요</span></header>
+                <header class="panel-header"><div><span class="panel-kicker">판단 상태</span><h2>현재 판단</h2></div><span class="pill warn" id="gatePill">확인 필요</span></header>
                 <div class="decision-stat"><span>공급 공백</span><strong id="gapKpi">0일</strong><small id="gapCaption">기본 조건에서는 공백 없음</small></div>
                 <div class="decision-stat"><span>워크플로 상태</span><strong id="statusKpi">검토 준비</strong><small id="statusCaption">필수 증빙을 확인하세요</small></div>
               </article>
 
               <article class="panel gate-panel">
-                <header class="panel-header"><div><span class="panel-kicker">EVIDENCE GATE</span><h2>승인 전 증빙</h2></div></header>
+                <header class="panel-header"><div><span class="panel-kicker">증빙 관문</span><h2>승인 전 증빙</h2></div></header>
                 <div class="flow" id="flow"></div>
                 <div class="alert" id="gateAlert"></div>
                 <div class="evidence" id="evidenceList"></div>
-                <div class="approval-box"><div class="approval-title"><span data-icon="sparkles"></span><strong>AI decision brief</strong></div><p id="aiSummary"></p><div class="actions"><button class="button danger-button" id="rejectBtn">거절</button><button class="button primary" id="approveBtn" disabled>승인 및 실행</button></div></div>
+                <div class="approval-box"><div class="approval-title"><span data-icon="sparkles"></span><strong>AI 판단 요약</strong></div><p id="aiSummary"></p><div class="actions"><button class="button danger-button" id="rejectBtn">거절</button><button class="button primary" id="approveBtn" disabled>승인 및 실행</button></div></div>
               </article>
             </div>
           </div>
         </section>
 
         <section id="approvals" class="view">
-          <div class="page-heading compact"><div><div class="heading-meta"><span class="mono-label">EXECUTION QUEUE</span></div><h1>승인·후속 작업</h1><p>승인 결과가 조달, 생산, 마케팅 실행 업무로 전환된 상태를 추적합니다.</p></div><div class="heading-actions"><button class="button ghost" id="clearTasks">모의 결과 초기화</button></div></div>
+          <div class="page-heading compact"><div><div class="heading-meta"><span class="mono-label">실행 대기열</span></div><h1>승인·후속 작업</h1><p>승인 결과가 조달, 생산, 마케팅 실행 업무로 전환된 상태를 추적합니다.</p></div><div class="heading-actions"><button class="button ghost" id="clearTasks">모의 결과 초기화</button></div></div>
           <div class="summary-row"><div><span>전체 작업</span><strong>실시간</strong></div><div><span>업무 소유자</span><strong>3개 부서</strong></div><div><span>자동 생성 규칙</span><strong>활성</strong></div></div>
-          <article class="panel table-panel"><header class="panel-header"><div><span class="panel-kicker">TASKS</span><h2>실행 큐</h2></div><span class="live-label"><i></i>LIVE</span></header><div id="taskTable"></div></article>
+          <article class="panel table-panel"><header class="panel-header"><div><span class="panel-kicker">후속 작업</span><h2>실행 대기열</h2></div><span class="live-label"><i></i>실시간</span></header><div id="taskTable"></div></article>
         </section>
 
         <section id="audit" class="view">
-          <div class="page-heading compact"><div><div class="heading-meta"><span class="mono-label">AUDIT TRAIL</span></div><h1>의사결정 로그</h1><p>입력 변경부터 증빙 확인, 승인과 실행까지 모든 판단 근거를 추적합니다.</p></div><div class="heading-actions"><button class="button ghost"><span data-icon="database"></span>내보내기</button></div></div>
-          <article class="panel log-panel"><header class="panel-header"><div><span class="panel-kicker">TRACE</span><h2>MAT‑047 변경 이력</h2></div><span class="source original">IMMUTABLE</span></header><div id="auditLog"></div></article>
+          <div class="page-heading compact"><div><div class="heading-meta"><span class="mono-label">감사 추적</span></div><h1>의사결정 로그</h1><p>입력 변경부터 증빙 확인, 승인과 실행까지 모든 판단 근거를 추적합니다.</p></div><div class="heading-actions"><button class="button ghost"><span data-icon="database"></span>내보내기</button></div></div>
+          <article class="panel log-panel"><header class="panel-header"><div><span class="panel-kicker">변경 이력</span><h2>MAT‑047 변경 이력</h2></div><span class="source original">변경 불가</span></header><div id="auditLog"></div></article>
         </section>
 
         <section id="sources" class="view">
-          <div class="page-heading compact"><div><div class="heading-meta"><span class="mono-label">GOVERNANCE</span></div><h1>데이터 계보와 분석 근거</h1><p>원본, 계산 결과, 시연 가정을 분리해 AI 추천의 근거와 한계를 명확히 합니다.</p></div></div>
+          <div class="page-heading compact"><div><div class="heading-meta"><span class="mono-label">데이터 거버넌스</span></div><h1>데이터 계보와 분석 근거</h1><p>원본, 계산 결과, 시연 가정을 분리해 AI 추천의 근거와 한계를 명확히 합니다.</p></div></div>
           <div class="source-layout">
-            <article class="panel table-panel"><header class="panel-header"><div><span class="panel-kicker">LINEAGE</span><h2>프로젝트 데이터 계보</h2></div><div class="legend"><span class="source original">SOURCE</span><span class="source calc">MODEL</span><span class="source mock">SIMULATED</span></div></header><div class="table-wrap"><table><thead><tr><th>데이터 항목</th><th>분류</th><th>의사결정에서의 역할</th><th>신뢰 수준</th></tr></thead><tbody><tr><td><strong>M‑B / V‑205</strong><small>해외·독점 계약</small></td><td><span class="source original">SOURCE</span></td><td>단일 공급 의존 위험 신호</td><td><span class="confidence high">High</span></td></tr><tr><td><strong>SKU‑1001~1004</strong><small>재고·운송중 수량</small></td><td><span class="source original">SOURCE</span></td><td>Masil 영향 기준선</td><td><span class="confidence high">High</span></td></tr><tr><td><strong>공급 공백·비용·일정</strong><small>운영 입력 기반</small></td><td><span class="source calc">MODEL</span></td><td>시나리오 영향 계산</td><td><span class="confidence medium">Medium</span></td></tr><tr><td><strong>ALT‑B1~B3</strong><small>후보·시험자료</small></td><td><span class="source mock">SIMULATED</span></td><td>업무 흐름 시연</td><td><span class="confidence low">Demo</span></td></tr></tbody></table></div></article>
-            <article class="panel methods-panel"><header class="panel-header"><div><span class="panel-kicker">METHODS</span><h2>적용 분석 개념</h2></div></header><div class="method-item"><span>01</span><div><strong>Disruption-driven replanning</strong><small>충격 기간과 공급 능력 변화에 따른 비용·서비스 영향</small></div></div><div class="method-item"><span>02</span><div><strong>Digital supply chain twin</strong><small>현재 상태와 가상 충격 상태의 비교</small></div></div><div class="method-item"><span>03</span><div><strong>Resilience-based selection</strong><small>비용·품질·납기·회복력 통합 평가</small></div></div><div class="method-item"><span>04</span><div><strong>Explainable AI + MCDM</strong><small>설명 가능한 기준과 사람의 최종 판단</small></div></div></article>
+            <article class="panel table-panel"><header class="panel-header"><div><span class="panel-kicker">데이터 계보</span><h2>프로젝트 데이터 계보</h2></div><div class="legend"><span class="source original">원본</span><span class="source calc">계산</span><span class="source mock">모의</span></div></header><div class="table-wrap"><table><thead><tr><th>데이터 항목</th><th>분류</th><th>의사결정에서의 역할</th><th>신뢰 수준</th></tr></thead><tbody><tr><td><strong>M‑B / V‑205</strong><small>해외·독점 계약</small></td><td><span class="source original">원본</span></td><td>단일 공급 의존 위험 신호</td><td><span class="confidence high">높음</span></td></tr><tr><td><strong>SKU‑1001~1004</strong><small>재고·운송중 수량</small></td><td><span class="source original">원본</span></td><td>Masil 영향 기준선</td><td><span class="confidence high">높음</span></td></tr><tr><td><strong>공급 공백·비용·일정</strong><small>운영 입력 기반</small></td><td><span class="source calc">계산</span></td><td>시나리오 영향 계산</td><td><span class="confidence medium">중간</span></td></tr><tr><td><strong>ALT‑B1~B3</strong><small>후보·시험자료</small></td><td><span class="source mock">모의</span></td><td>업무 흐름 시연</td><td><span class="confidence low">시연</span></td></tr></tbody></table></div></article>
+            <article class="panel methods-panel"><header class="panel-header"><div><span class="panel-kicker">분석 방법</span><h2>적용 분석 개념</h2></div></header><div class="method-item"><span>01</span><div><strong>공급 충격 기반 재계획</strong><small>충격 기간과 공급 능력 변화에 따른 비용·서비스 영향</small></div></div><div class="method-item"><span>02</span><div><strong>디지털 공급망 트윈</strong><small>현재 상태와 가상 충격 상태의 비교</small></div></div><div class="method-item"><span>03</span><div><strong>회복력 기반 후보 선택</strong><small>비용·품질·납기·회복력 통합 평가</small></div></div><div class="method-item"><span>04</span><div><strong>설명 가능한 AI 평가</strong><small>설명 가능한 기준과 사람의 최종 판단</small></div></div></article>
           </div>
         </section>
       </div>
@@ -224,10 +224,10 @@
 
     <aside class="ai-rail" id="aiRail" aria-label="MaterialSwitch AI Copilot">
       <header class="ai-head">
-        <div class="ai-title"><span class="ai-mark" data-icon="sparkles"></span><div><strong>MaterialSwitch AI</strong><span>Decision copilot</span></div></div>
-        <div class="ai-head-actions"><span class="ai-status"><i></i>Context active</span><button class="ai-close" id="aiClose" aria-label="AI 패널 닫기"><span data-icon="x"></span></button></div>
+        <div class="ai-title"><span class="ai-mark" data-icon="sparkles"></span><div><strong>MaterialSwitch AI</strong><span>의사결정 보조</span></div></div>
+        <div class="ai-head-actions"><span class="ai-status"><i></i>상황 연결됨</span><button class="ai-close" id="aiClose" aria-label="AI 패널 닫기"><span data-icon="x"></span></button></div>
       </header>
-      <div class="ai-context"><span class="context-label">CONTEXT</span><span class="context-chip">MAT‑047</span><span class="context-chip">M‑B</span><span class="context-chip" id="contextScenario">기본 조건</span></div>
+      <div class="ai-context"><span class="context-label">현재 상황</span><span class="context-chip">MAT‑047</span><span class="context-chip">M‑B</span><span class="context-chip" id="contextScenario">기본 조건</span></div>
       <div class="ai-thread" id="aiThread">
         <div class="thread-divider"><span>현재 운영 컨텍스트</span></div>
         <div class="assistant-message">
@@ -236,7 +236,7 @@
             <b>공급망 상황을 분석했습니다.</b>
             <span id="copilotSummary">현재 조건에서는 즉시 공급 공백이 예상되지 않습니다.</span>
             <div class="ai-brief">
-              <div class="brief-head"><span>DECISION BRIEF</span><span class="risk-level" id="copilotRisk">모니터링</span></div>
+              <div class="brief-head"><span>판단 요약</span><span class="risk-level" id="copilotRisk">모니터링</span></div>
               <div class="brief-primary"><span>추천 후보</span><strong id="copilotCandidate">ALT‑B1 · 88점</strong></div>
               <div class="brief-grid"><div><span>예상 공백</span><strong id="copilotGap">0일</strong></div><div><span>증빙 상태</span><strong id="copilotEvidence">4건 확인 필요</strong></div></div>
               <div class="brief-reason"><span data-icon="activity"></span><p>단일 공급 구조와 재고 커버를 함께 고려하면 후보 검증을 먼저 완료하는 것이 가장 낮은 비용의 대응입니다.</p></div>

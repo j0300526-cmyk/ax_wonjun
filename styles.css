@@ -27,7 +27,7 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  min-width: 1440px;
+  min-width: 1280px;
   background: var(--bg);
   color: var(--ink);
   font-family: Inter, "Pretendard Variable", Pretendard, "Noto Sans KR", system-ui, sans-serif;
@@ -40,7 +40,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 svg { display: block; }
 [data-icon] > svg, .inline-icon svg { width: 100%; height: 100%; }
 
-.app-shell { min-height: 100vh; display: grid; grid-template-columns: 214px minmax(850px, 1fr) 360px; }
+.app-shell { min-height: 100vh; display: grid; grid-template-columns: 196px minmax(0, 1fr); }
 .sidebar {
   position: sticky;
   top: 0;
@@ -100,7 +100,7 @@ svg { display: block; }
 .notification-dot { position: absolute; top: 6px; right: 6px; width: 5px; height: 5px; border: 1px solid #fff; border-radius: 50%; background: var(--red); }
 .sync-state { display: flex; align-items: center; gap: 6px; padding: 7px 8px; border: 1px solid #d9eee6; border-radius: 6px; background: #f5fbf8; color: #39765f; font-size: 8px; font-weight: 700; text-transform: uppercase; }
 
-.content { width: 100%; max-width: 1540px; margin: 0 auto; padding: 25px 26px 56px; }
+.content { width: 100%; max-width: 1600px; margin: 0 auto; padding: 28px 32px 64px; }
 .view { display: none; }
 .view.active { display: block; animation: view-in .18s var(--ease); }
 @keyframes view-in { from { opacity: 0; transform: translateY(2px); } }
@@ -264,11 +264,12 @@ td { padding: 11px 10px; border-bottom: 1px solid #eceef1; color: #4c545f; }tbod
 .source-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, .65fr); gap: 10px; }.legend { display: flex !important; grid-auto-flow: column; gap: 4px !important; }.confidence { display: inline-flex; padding: 3px 6px; border-radius: 3px; font: 700 7px ui-monospace, monospace; }.confidence.high { background: var(--green-soft); color: #287b5d; }.confidence.medium { background: var(--amber-soft); color: #9b610d; }.confidence.low { background: #f0f1f3; color: #6e7680; }
 .method-item { display: grid; grid-template-columns: 27px 1fr; gap: 9px; padding: 12px 13px; border-bottom: 1px solid var(--line); }.method-item > span { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 5px; background: #edf4ff; color: #3f69ab; font: 700 8px ui-monospace, monospace; }.method-item div { display: grid; gap: 3px; }.method-item strong { font-size: 9px; }.method-item small { color: var(--muted); font-size: 8px; line-height: 1.45; }
 
-.ai-rail { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; min-width: 0; background: #fbfbfc; }
+.ai-rail { position: fixed; z-index: 40; top: 0; right: 0; width: 380px; height: 100vh; display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-left: 1px solid var(--line); background: #fbfbfc; box-shadow: -18px 0 48px rgba(15, 20, 30, .1); opacity: 0; transform: translateX(100%); pointer-events: none; transition: transform .22s var(--ease), opacity .18s ease; }
+.app-shell.ai-open .ai-rail { opacity: 1; transform: translateX(0); pointer-events: auto; }
 .ai-head { height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 0 13px; border-bottom: 1px solid var(--line); background: #fff; }
 .ai-title { display: flex; align-items: center; gap: 8px; }.ai-mark, .message-icon { width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 auto; padding: 6px; border-radius: 6px; background: #111419; color: #fff; }.ai-title div { display: grid; gap: 1px; }.ai-title strong { font-size: 10px; }.ai-title div span { color: var(--muted); font-size: 7px; }
 .message-icon svg { width: 100%; height: 100%; }
-.ai-head-actions { display: flex; align-items: center; gap: 7px; }.ai-status { display: inline-flex; align-items: center; gap: 5px; color: #5b776b; font-size: 7px; }.ai-status i { width: 5px; height: 5px; border-radius: 50%; background: #1bac77; }.ai-close { display: none; width: 26px; height: 26px; padding: 6px; border: 0; background: transparent; color: var(--muted); }
+.ai-head-actions { display: flex; align-items: center; gap: 7px; }.ai-status { display: inline-flex; align-items: center; gap: 5px; color: #5b776b; font-size: 10px; }.ai-status i { width: 5px; height: 5px; border-radius: 50%; background: #1bac77; }.ai-close { display: grid; place-items: center; width: 28px; height: 28px; padding: 6px; border: 1px solid var(--line); border-radius: 5px; background: #fff; color: var(--muted); }
 .ai-context { min-height: 39px; display: flex; align-items: center; gap: 5px; padding: 6px 13px; overflow: hidden; border-bottom: 1px solid var(--line); background: #fff; }.context-label { margin-right: 2px; color: #9aa1ab; font: 700 7px ui-monospace, monospace; letter-spacing: .08em; }.context-chip { padding: 4px 6px; border: 1px solid #dfe3e7; border-radius: 4px; background: #fafbfc; color: #5d6671; font: 600 7px ui-monospace, monospace; white-space: nowrap; }
 .ai-thread { flex: 1; overflow: auto; padding: 14px 13px 18px; }.thread-divider { display: flex; align-items: center; gap: 8px; margin: 2px 0 15px; color: #9da4ad; font-size: 7px; }.thread-divider:before, .thread-divider:after { content: ""; flex: 1; height: 1px; background: #e6e8eb; }
 .assistant-message { display: grid; grid-template-columns: 26px 1fr; gap: 9px; margin-bottom: 15px; }.message-body { color: #505863; font-size: 9px; line-height: 1.6; }.message-body > b { display: block; margin-bottom: 4px; color: #1f242b; font-size: 10px; }.message-body > span { display: block; }
@@ -276,7 +277,103 @@ td { padding: 11px 10px; border-bottom: 1px solid #eceef1; color: #4c545f; }tbod
 .next-label { margin-bottom: 6px; color: #9198a2; font: 700 7px ui-monospace, monospace; letter-spacing: .06em; }.suggestion-list { display: grid; gap: 5px; }.ai-suggestion { min-height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 5px; background: #fff; color: #4f5965; text-align: left; font-size: 8px; }.ai-suggestion:hover { border-color: #b9c5d7; background: #f9fbff; }.ai-suggestion span { width: 12px; height: 12px; color: #7a8da9; }
 .user-message { margin: 0 0 14px 35px; padding: 8px 9px; border-radius: 6px 2px 6px 6px; background: #e9edf3; color: #3f4854; font-size: 8px; line-height: 1.5; }.typing { display: flex; gap: 3px; padding-top: 6px; }.typing i { width: 4px; height: 4px; border-radius: 50%; background: #87909a; animation: blink 1s infinite; }.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}@keyframes blink{50%{opacity:.25}}
 .ai-compose { padding: 10px 12px 12px; border-top: 1px solid var(--line); background: #fff; }.compose-box { padding: 9px; border: 1px solid var(--line-strong); border-radius: 6px; background: #fff; box-shadow: 0 4px 14px rgba(20,28,40,.04); }.compose-box:focus-within { border-color: #91ade0; box-shadow: 0 0 0 3px rgba(37,99,235,.08); }.compose-box textarea { width: 100%; height: 45px; resize: none; border: 0; outline: 0; background: transparent; color: #333b45; font-size: 9px; line-height: 1.5; }.compose-actions { display: flex; align-items: center; justify-content: space-between; }.compose-meta { color: #9ba2ac; font-size: 7px; }.send-btn { width: 27px; height: 27px; display: grid; place-items: center; padding: 7px; border: 0; border-radius: 5px; background: #111419; color: #fff; }.send-btn:hover { background: #28303a; }.ai-disclaimer { margin-top: 7px; color: #a0a6ae; font-size: 7px; text-align: center; }
-.toast { position: fixed; right: 374px; bottom: 18px; z-index: 50; padding: 10px 12px; border: 1px solid #323842; border-radius: 5px; background: #15191f; color: #fff; font-size: 8px; opacity: 0; transform: translateY(60px); transition: .2s var(--ease); box-shadow: 0 12px 30px rgba(0,0,0,.18); }.toast.show { opacity: 1; transform: none; }
+.toast { position: fixed; right: 18px; bottom: 18px; z-index: 50; padding: 11px 14px; border: 1px solid #323842; border-radius: 5px; background: #15191f; color: #fff; font-size: 11px; opacity: 0; transform: translateY(60px); transition: .2s var(--ease); box-shadow: 0 12px 30px rgba(0,0,0,.18); }.toast.show { opacity: 1; transform: none; }
+
+/* Readability pass: desktop information density without miniature text. */
+.brand-copy span,
+.workspace-switcher span,
+.sidebar-user span,
+.status-row,
+.nav-label { font-size: 10px; }
+.workspace-switcher strong,
+.sidebar-user strong,
+.status-head strong { font-size: 11px; }
+.nav-btn { min-height: 38px; font-size: 12px; }
+.breadcrumb,
+.command-trigger { font-size: 11px; }
+.sync-state,
+.mono-label,
+.panel-kicker,
+.severity,
+.source,
+.pill,
+.live-label,
+.queue-count,
+.context-label,
+.context-chip,
+.as-of { font-size: 10px; }
+.page-heading h1 { font-size: 26px; }
+.page-heading p,
+.incident-strip div span,
+.section-title > span { font-size: 12px; }
+.incident-strip strong,
+.panel-header h2,
+.section-title h2 { font-size: 14px; }
+.button,
+.mini-button,
+.text-button { font-size: 11px; }
+.metric-top { font-size: 11px; }
+.metric-main strong { font-size: 30px; }
+.metric-main span,
+.metric-foot { font-size: 10px; }
+.node-type,
+.panel-footer,
+.event-row div span,
+.range-labels,
+.weight-note { font-size: 9px; }
+.graph-node strong { font-size: 13px; }
+.graph-node small,
+.node-health,
+.event-row small,
+.playbook small,
+.control label,
+.chart-head span,
+.compare-row > span,
+.panel-note,
+.decision-stat > span,
+.decision-stat small,
+.alert,
+.check,
+.approval-box p,
+.summary-row span,
+.log-body span,
+.method-item small { font-size: 10px; }
+.event-row strong,
+.playbook strong,
+.chart-head strong,
+.candidate-info strong,
+.log-body b,
+.method-item strong { font-size: 12px; }
+.candidate-head,
+.candidate-info span,
+.candidate-metric,
+.compare-row > strong,
+.step,
+th,
+.task-action,
+.log-time { font-size: 10px; }
+table,
+td,
+td strong { font-size: 11px; }
+td small { font-size: 10px; }
+.ai-title strong { font-size: 12px; }
+.ai-title div span,
+.thread-divider,
+.brief-head,
+.brief-primary span,
+.brief-grid span,
+.next-label,
+.compose-meta,
+.ai-disclaimer { font-size: 10px; }
+.message-body,
+.assistant-message,
+.ai-suggestion,
+.user-message { font-size: 11px; }
+.message-body > b { font-size: 12px; }
+.brief-primary strong { font-size: 13px; }
+.brief-grid strong { font-size: 11px; }
+.brief-reason p { font-size: 10px; }
+.compose-box textarea { font-size: 12px; }
 
 * { scrollbar-width: thin; scrollbar-color: #c7ccd3 transparent; }
 *::-webkit-scrollbar { width: 8px; height: 8px; }
