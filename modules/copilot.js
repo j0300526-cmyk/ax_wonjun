@@ -1,5 +1,6 @@
 import { impacts, missingEvidence, score, selectedCandidate } from './domain.js';
 import { $, $$ } from './render.js';
+import { icon } from './icons.js';
 
 function reply(state, query) {
   const impact = impacts(state), candidate = selectedCandidate(state), missing = missingEvidence(state);
@@ -21,20 +22,20 @@ function appendAnswer(getState, query) {
 
   const loading = document.createElement('div');
   loading.className = 'assistant-message';
-  loading.innerHTML = '<span class="message-icon">✦</span><div class="message-body"><b>분석 중</b><div class="typing"><i></i><i></i><i></i></div></div>';
+  loading.innerHTML = `<span class="message-icon">${icon('sparkles')}</span><div class="message-body"><b>분석 중</b><div class="typing"><i></i><i></i><i></i></div></div>`;
   thread.appendChild(loading);
   thread.scrollTop = thread.scrollHeight;
 
   setTimeout(() => {
     loading.remove();
     const message = document.createElement('div');
-    const icon = document.createElement('span');
+    const iconElement = document.createElement('span');
     const body = document.createElement('div');
     const title = document.createElement('b');
     const answer = document.createElement('span');
-    message.className = 'assistant-message'; icon.className = 'message-icon'; body.className = 'message-body';
-    icon.textContent = '✦'; title.textContent = '컨텍스트 기반 분석'; answer.textContent = reply(getState(), value);
-    body.append(title, answer); message.append(icon, body); thread.appendChild(message);
+    message.className = 'assistant-message'; iconElement.className = 'message-icon'; body.className = 'message-body';
+    iconElement.innerHTML = icon('sparkles'); title.textContent = '컨텍스트 기반 분석'; answer.textContent = reply(getState(), value);
+    body.append(title, answer); message.append(iconElement, body); thread.appendChild(message);
     thread.scrollTop = thread.scrollHeight;
   }, 420);
 }

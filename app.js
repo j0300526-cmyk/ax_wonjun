@@ -3,7 +3,9 @@ import { impacts, isReady, selectedCandidate } from './modules/domain.js';
 import { createStore } from './modules/state.js';
 import { $, $$, openView, renderApp, toast } from './modules/render.js';
 import { createCopilot } from './modules/copilot.js';
+import { mountIcons } from './modules/icons.js';
 
+mountIcons();
 const store = createStore();
 const copilot = createCopilot(() => store.get());
 

@@ -32,9 +32,9 @@ function renderScenarioTabs(state) {
 function renderCandidates(state, onSelect) {
   $('#candidateList').innerHTML = candidates.map(candidate => `
     <button class="candidate ${state.selected === candidate.id ? 'selected' : ''}" data-candidate="${candidate.id}" aria-pressed="${state.selected === candidate.id}">
-      <div><h3>${candidate.id} · ${candidate.name} <span class="source mock">모의</span></h3><div class="candidate-meta"><span>리드타임 ${candidate.days}일</span><span>비용 ${candidate.price >= 0 ? '+' : ''}${candidate.price}%</span><span>${candidate.resilience >= 85 ? '복수 조달 가능' : '회복력 확인 필요'}</span></div></div>
-      <div class="score">${score(state, candidate)}<small>/ 100</small></div>
-      <div class="score-bars">${[['품질',candidate.quality],['납기',candidate.lead],['비용',candidate.cost],['회복력',candidate.resilience]].map(metric => `<div class="metric">${metric[0]} ${metric[1]}<div class="bar"><i style="width:${metric[1]}%"></i></div></div>`).join('')}</div>
+      <div class="candidate-info"><strong>${candidate.id} · ${candidate.name}</strong><span>리드타임 ${candidate.days}일 · 비용 ${candidate.price >= 0 ? '+' : ''}${candidate.price}% · ${candidate.resilience >= 85 ? '복수 조달 가능' : '회복력 확인 필요'}</span></div>
+      ${[candidate.quality, candidate.lead, candidate.cost, candidate.resilience].map(value => `<span class="candidate-metric">${value}<span class="mini-track"><i style="width:${value}%"></i></span></span>`).join('')}
+      <span class="candidate-score"><strong>${score(state, candidate)}</strong><span>/100</span></span>
     </button>`).join('');
   $$('[data-candidate]').forEach(button => button.onclick = () => onSelect(button.dataset.candidate));
 }
@@ -72,6 +72,13 @@ function renderImpacts(state) {
   $('#campaignImpact').className = `impact-item ${impact.campaign ? 'danger' : ''}`;
   $('#gapKpi').textContent = `${impact.shortage}일`; $('#gapCaption').textContent = impact.shortage ? '대체 조달 없을 때 예상' : '기본 조건에서는 공백 없음';
   $('#statusKpi').textContent = state.status; $('#statusCaption').textContent = state.status === '승인 완료' ? '후속 작업이 생성됐습니다' : state.status === '승인 거절' ? '보완 작업이 생성됐습니다' : isReady(state) ? '최종 승인 가능' : '필수 증빙을 확인하세요';
+  $('#overviewGap').textContent = impact.shortage;
+  $('#overviewGapCaption').textContent = impact.shortage ? `현재 입력에서 ${impact.shortage}일 위험` : '기본 시나리오 기준';
+  $('#overviewStatus').textContent = state.status;
+  const checkedCount = evidence.filter(item => item.required && state.checks[item.id]).length;
+  $('#overviewEvidence').textContent = `${checkedCount} / ${evidence.filter(item => item.required).length}`;
+  const progress = state.status === '승인 완료' ? 4 : isReady(state) ? 3 : state.ran ? 2 : 1;
+  $$('.step-dots i').forEach((dot, index) => dot.classList.toggle('active', index < progress));
   Object.entries(recovery).forEach(([name,value]) => {
     const bar = $(`#${name}Bar`);
     bar.style.width = `${value}%`;
