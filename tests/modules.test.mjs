@@ -1,18 +1,23 @@
 import assert from 'node:assert/strict';
 import { candidates, evidence, initialState } from '../modules/data.js';
-import { impacts, isReady, missingEvidence, resilience, score, selectedCandidate } from '../modules/domain.js';
+import { impacts, isReady, missingEvidence, resilience, selectedCandidate } from '../modules/domain.js';
+import { dermSkus } from '../modules/observations.js';
+import { deriveDermSkus } from '../scripts/source-data.mjs';
 
 const base = { ...initialState, checks: {} };
-assert.deepEqual(impacts(base), { shortage: 0, cost: 0, campaign: 0 });
+assert.deepEqual(await deriveDermSkus(), dermSkus);
+assert.equal(dermSkus.length, 4);
+assert.equal(impacts(base).unfilledOrderEok, 0);
+assert.equal(impacts(base).critical.id, 'SKU-1004');
+assert.equal(impacts(base).exposureDays, 61);
 
 const disruption = { ...base, delay: 15, supply: 50 };
-assert.equal(impacts(disruption).shortage, 11);
-assert.equal(impacts(disruption).campaign, 6);
-assert.ok(impacts(disruption).cost > 10);
-assert.ok(Object.values(resilience(disruption)).every(value => value >= 5 && value <= 100));
+assert.equal(impacts(disruption).exposureDays, 76);
+assert.equal(impacts(disruption).exposedSkuCount, 4);
+assert.equal(impacts(disruption).unfilledOrderEok, 9.6096);
+assert.ok(Object.values(resilience(disruption)).every(value => value >= 0 && value <= 100));
 
 assert.equal(selectedCandidate(base).id, 'ALT-B1');
-assert.ok(score(base, candidates[0]) >= 0 && score(base, candidates[0]) <= 100);
 assert.equal(isReady(base), false);
 assert.equal(missingEvidence(base).length, evidence.filter(item => item.required).length);
 

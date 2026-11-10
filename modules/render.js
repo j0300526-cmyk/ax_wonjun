@@ -1,5 +1,5 @@
 import { candidates, evidence } from './data.js';
-import { impacts, isReady, resilience, score, selectedCandidate } from './domain.js';
+import { impacts, isReady, resilience, selectedCandidate } from './domain.js';
 
 export const $ = selector => document.querySelector(selector);
 export const $$ = selector => document.querySelectorAll(selector);
@@ -32,9 +32,9 @@ function renderScenarioTabs(state) {
 function renderCandidates(state, onSelect) {
   $('#candidateList').innerHTML = candidates.map(candidate => `
     <button class="candidate ${state.selected === candidate.id ? 'selected' : ''}" data-candidate="${candidate.id}" aria-pressed="${state.selected === candidate.id}">
-      <div class="candidate-info"><strong>${candidate.id} · ${candidate.name}</strong><span>리드타임 ${candidate.days}일 · 비용 ${candidate.price >= 0 ? '+' : ''}${candidate.price}% · ${candidate.resilience >= 85 ? '복수 조달 가능' : '회복력 확인 필요'}</span></div>
-      ${[candidate.quality, candidate.lead, candidate.cost, candidate.resilience].map(value => `<span class="candidate-metric">${value}<span class="mini-track"><i style="width:${value}%"></i></span></span>`).join('')}
-      <span class="candidate-score"><strong>${score(state, candidate)}</strong><span>/100</span></span>
+      <div class="candidate-info"><strong>${candidate.id} · ${candidate.name}</strong><span>가상 후보 · 실측 자료 미제공</span></div>
+      ${[0, 1, 2, 3].map(() => '<span class="candidate-metric">미확인</span>').join('')}
+      <span class="candidate-score"><strong>산정 불가</strong></span>
     </button>`).join('');
   $$('[data-candidate]').forEach(button => button.onclick = () => onSelect(button.dataset.candidate));
 }
@@ -55,10 +55,10 @@ function renderGate(state) {
   const ready = isReady(state), candidate = selectedCandidate(state), impact = impacts(state);
   $('#approveBtn').disabled = !ready;
   $('#gatePill').className = `pill ${ready ? 'ok' : 'warn'}`;
-  $('#gatePill').textContent = ready ? '승인 가능' : '확인 필요';
+  $('#gatePill').textContent = ready ? '모의 승인 가능' : '확인 필요';
   $('#gateAlert').className = `alert ${ready ? 'ok' : ''}`;
-  $('#gateAlert').innerHTML = ready ? '<span>✓</span><div><b>필수 증빙이 모두 확인됐습니다.</b><br>승인권자가 최종 결정을 내릴 수 있습니다.</div>' : '<span>!</span><div><b>승인 전 증빙 확인이 필요합니다.</b><br>누락 자료가 있으면 사용 승인을 차단합니다.</div>';
-  $('#aiSummary').textContent = `AI 요약: ${candidate.id}는 현재 ${score(state, candidate)}점입니다. ${impact.shortage ? `공급 공백 ${impact.shortage}일과 캠페인 ${impact.campaign}일 지연 가능성이 있습니다.` : '즉시 공급 공백은 계산되지 않았습니다.'} ${ready ? '필수 증빙은 확인됐으나 최종 안전성 판단은 승인권자에게 있습니다.' : '필수 증빙이 누락되어 승인할 수 없습니다.'}`;
+  $('#gateAlert').innerHTML = ready ? '<span>✓</span><div><b>필수 증빙이 화면에서 체크됐습니다.</b><br>실제 증빙 파일 검증이나 사용 승인은 수행되지 않았습니다.</div>' : '<span>!</span><div><b>필수 증빙 체크가 필요합니다.</b><br>이 화면은 시연용이며 실제 시험 파일은 연결되지 않았습니다.</div>';
+  $('#aiSummary').textContent = `데이터룸 재계산: ${impact.critical.id}는 예정 발주 도착 전 ${impact.exposureDays}일의 재고 노출이 있습니다. 운송중 물량의 도착일은 없어 제외했습니다. ${candidate.id}는 실측 자료가 없어 점수를 매길 수 없습니다. ${ready ? '화면의 증빙 체크는 모의 입력이며 최종 판단은 승인권자에게 있습니다.' : '필수 증빙이 누락되어 모의 승인도 진행할 수 없습니다.'}`;
   renderFlow(state, ready);
 }
 
@@ -66,14 +66,14 @@ function renderImpacts(state) {
   const impact = impacts(state), recovery = resilience(state);
   $('#delay').value = state.delay; $('#supply').value = state.supply;
   $('#delayValue').textContent = `${state.delay}일`; $('#supplyValue').textContent = `${state.supply}%`;
-  $('#shortageDays').textContent = `${impact.shortage}일`; $('#costChange').textContent = `+${impact.cost.toFixed(1)}%`; $('#campaignDelay').textContent = impact.campaign ? `${impact.campaign}일 지연` : '영향 없음';
-  $('#shortageImpact').className = `impact-item ${impact.shortage > 7 ? 'danger' : impact.shortage ? 'warn' : ''}`;
-  $('#costImpact').className = `impact-item ${impact.cost > 10 ? 'danger' : impact.cost ? 'warn' : ''}`;
-  $('#campaignImpact').className = `impact-item ${impact.campaign ? 'danger' : ''}`;
-  $('#gapKpi').textContent = `${impact.shortage}일`; $('#gapCaption').textContent = impact.shortage ? '대체 조달 없을 때 예상' : '기본 조건에서는 공백 없음';
-  $('#statusKpi').textContent = state.status; $('#statusCaption').textContent = state.status === '승인 완료' ? '후속 작업이 생성됐습니다' : state.status === '승인 거절' ? '보완 작업이 생성됐습니다' : isReady(state) ? '최종 승인 가능' : '필수 증빙을 확인하세요';
-  $('#overviewGap').textContent = impact.shortage;
-  $('#overviewGapCaption').textContent = impact.shortage ? `현재 입력에서 ${impact.shortage}일 위험` : '기본 시나리오 기준';
+  $('#shortageDays').textContent = `${impact.exposureDays}일`; $('#costChange').textContent = `${impact.unfilledOrderEok.toFixed(2)}억원`; $('#campaignDelay').textContent = `${impact.exposedSkuCount}개 SKU`;
+  $('#shortageImpact').className = `impact-item ${impact.exposureDays ? 'warn' : ''}`;
+  $('#costImpact').className = `impact-item ${impact.unfilledOrderEok ? 'warn' : ''}`;
+  $('#campaignImpact').className = `impact-item ${impact.exposedSkuCount ? 'warn' : ''}`;
+  $('#gapKpi').textContent = `${impact.exposureDays}일`; $('#gapCaption').textContent = `${impact.critical.id} · 운송중 도착일 미반영`;
+  $('#statusKpi').textContent = state.status; $('#statusCaption').textContent = state.status === '승인 완료' ? '모의 작업이 생성됐습니다' : state.status === '승인 거절' ? '모의 보완 작업이 생성됐습니다' : isReady(state) ? '화면 체크 완료 · 실제 파일 미검증' : '필수 항목을 체크하세요';
+  $('#overviewGap').textContent = impact.exposureDays;
+  $('#overviewGapCaption').textContent = `${impact.critical.id} · 예정 발주 전`;
   $('#overviewStatus').textContent = state.status;
   const checkedCount = evidence.filter(item => item.required && state.checks[item.id]).length;
   $('#overviewEvidence').textContent = `${checkedCount} / ${evidence.filter(item => item.required).length}`;
@@ -82,10 +82,10 @@ function renderImpacts(state) {
   Object.entries(recovery).forEach(([name,value]) => {
     const bar = $(`#${name}Bar`);
     bar.style.width = `${value}%`;
-    bar.className = `compare-current ${value < 50 ? 'danger' : value < 75 ? 'warn' : ''}`;
+    bar.className = `compare-current ${value < 100 ? 'warn' : ''}`;
     $(`#${name}Score`).textContent = value;
   });
-  $('#visualNarrative').textContent = recovery.supply < 50 ? '공급 충격이 생산과 캠페인으로 전파될 위험이 큽니다.' : recovery.production < 75 ? '대체 조달과 생산계획 재검토가 필요합니다.' : '현재 조건에서 안정적으로 운영 가능합니다.';
+  $('#visualNarrative').textContent = '기록된 재고·발주량 기준. 운송중 도착일은 미제공입니다.';
 }
 
 function renderTasks(state, onComplete) {

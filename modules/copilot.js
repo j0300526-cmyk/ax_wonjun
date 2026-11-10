@@ -1,13 +1,13 @@
-import { impacts, missingEvidence, score, selectedCandidate } from './domain.js';
+import { impacts, missingEvidence, selectedCandidate } from './domain.js';
 import { $, $$ } from './render.js';
 import { icon } from './icons.js';
 
 function reply(state, query) {
   const impact = impacts(state), candidate = selectedCandidate(state), missing = missingEvidence(state);
-  if (query.includes('50%')) return '공급량 50% 조건은 긴급조달 비용과 생산 준비도를 동시에 낮춥니다. 워크벤치에서 해당 시나리오를 적용해 후보 점수와 캠페인 영향을 함께 확인하세요.';
-  if (query.includes('증빙') || query.includes('부족')) return missing.length ? `현재 미확인 필수 증빙은 ${missing.map(item => item.label).join(', ')}입니다. 모두 확인되기 전에는 승인 요청이 차단됩니다.` : '필수 증빙 4건이 모두 확인됐습니다. 최종 안전성 판단과 승인은 담당자가 수행해야 합니다.';
-  if (query.includes('후보') || query.includes('비교')) return `${candidate.id}가 현재 ${score(state, candidate)}점으로 선택되어 있습니다. 품질, 납기, 비용, 회복력의 가중 점수이며 품질 승인을 대신하지 않습니다.`;
-  return `현재 예상 공급 공백은 ${impact.shortage}일, 긴급조달 비용 변화는 +${impact.cost.toFixed(1)}%입니다. ${candidate.id} 후보와 증빙 상태를 우선 검토하세요.`;
+  if (query.includes('50%')) return '공급량 50%는 기록된 발주액 중 절반이 미공급되는 시나리오입니다. 이는 비용 증가율이 아니라 미공급분의 계약금액입니다.';
+  if (query.includes('증빙') || query.includes('부족')) return missing.length ? `화면에서 체크되지 않은 필수 항목은 ${missing.map(item => item.label).join(', ')}입니다. 실제 증빙 파일은 연결되지 않았습니다.` : '필수 항목 4건이 화면에서 체크됐습니다. 실제 파일 검증과 사용 승인은 수행되지 않았습니다.';
+  if (query.includes('후보') || query.includes('비교')) return `${candidate.id}는 시연용 가상 후보입니다. 후보별 시험 결과, 실제 납기, 견적이 없어 비교 점수를 산정할 수 없습니다.`;
+  return `${impact.critical.id}의 예정 발주 도착 전 재고 노출은 ${impact.exposureDays}일입니다. 공급량 조건에 따른 미공급 발주액은 ${impact.unfilledOrderEok.toFixed(2)}억원입니다. 운송중 재고 도착일이 없어 실제 품절 예측은 아닙니다.`;
 }
 
 function appendAnswer(getState, query) {
@@ -72,10 +72,10 @@ export function createCopilot(getState) {
   return {
     render(state) {
       const impact = impacts(state), candidate = selectedCandidate(state), missing = missingEvidence(state).length;
-      $('#copilotSummary').textContent = impact.shortage ? `현재 조건에서는 ${impact.shortage}일의 공급 공백과 ${impact.campaign}일의 캠페인 지연이 예상됩니다. ${candidate.id} 전환 검토를 우선 실행하세요.` : '현재 조건에서는 즉시 공급 공백이 예상되지 않습니다. 다만 V‑205 단일 공급 구조는 지속적인 모니터링이 필요합니다.';
-      $('#copilotRisk').textContent = impact.shortage > 7 ? '높은 위험' : impact.shortage ? '주의 필요' : '모니터링';
-      $('#copilotCandidate').textContent = `${candidate.id} · ${score(state, candidate)}점`;
-      $('#copilotGap').textContent = `${impact.shortage}일`;
+      $('#copilotSummary').textContent = `${impact.critical.id}는 예정 발주 도착 전 ${impact.exposureDays}일의 재고 노출이 있습니다. 운송중 물량의 도착일이 없어 실제 품절일은 산정할 수 없습니다.`;
+      $('#copilotRisk').textContent = '추가 확인 필요';
+      $('#copilotCandidate').textContent = '후보 점수 산정 불가';
+      $('#copilotGap').textContent = `${impact.exposureDays}일`;
       $('#copilotEvidence').textContent = missing ? `${missing}건 확인 필요` : '필수 증빙 완료';
       $('#contextScenario').textContent = state.delay || state.supply < 100 ? `지연 ${state.delay}일 · 공급 ${state.supply}%` : '기본 조건';
     }

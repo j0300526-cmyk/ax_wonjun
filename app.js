@@ -39,7 +39,7 @@ function paint() {
 function applyScenario(type) {
   const scenario = scenarios[type] || scenarios.normal;
   store.patch({ ...scenario, scenario: type, ran: true });
-  store.log('시연 시나리오 적용', `${type} 조건 · 지연 ${scenario.delay}일 · 공급 ${scenario.supply}%`);
+  store.log('시연 시나리오 적용', `${type} 조건 · 발주 지연 ${scenario.delay}일 · 발주 충족 ${scenario.supply}%`);
   paint();
 }
 
@@ -50,16 +50,16 @@ function approve() {
 
   const candidate = selectedCandidate(state);
   const suffix = Date.now().toString().slice(-5);
-  const campaignDelay = impacts(state).campaign;
+  const exposedSkuCount = impacts(state).exposedSkuCount;
   const tasks = [
     { id: `PO-RQ-${suffix}`, owner: '조달팀', title: `${candidate.id} 대체 원료 발주 요청`, status: '생성', basis: '품질 승인 완료' },
     { id: `PLAN-${suffix}`, owner: '생산팀', title: 'PL-02 생산계획 갱신', status: '생성', basis: `대체 원료 ${candidate.id}` },
-    { id: `MKT-${suffix}`, owner: 'Masil 운영팀', title: 'SKU-1001~1004 일정 검토', status: '생성', basis: `예상 지연 ${campaignDelay}일` }
+    { id: `MKT-${suffix}`, owner: 'Masil 운영팀', title: 'SKU-1001~1004 일정 검토', status: '생성', basis: `노출 SKU ${exposedSkuCount}개 · 일정 미확정` }
   ];
   store.patch({ status: '승인 완료', tasks: [...tasks, ...state.tasks] });
-  store.log('대체 원료 사용 승인', `${candidate.id} 승인 · 후속 작업 3건 생성`);
+  store.log('대체 원료 모의 승인', `${candidate.id} 시연 승인 · 로컬 작업 3건 생성`);
   paint();
-  toast('승인 완료 · 후속 작업 3건을 생성했습니다');
+  toast('모의 승인 완료 · 브라우저에 작업 3건을 생성했습니다');
 }
 
 function reject() {
@@ -68,9 +68,9 @@ function reject() {
   const suffix = Date.now().toString().slice(-5);
   const task = { id: `QA-${suffix}`, owner: '품질팀', title: `${candidate.id} 보완 시험 및 다른 후보 검토`, status: '확인 필요', basis: '사용 승인 거절' };
   store.patch({ status: '승인 거절', tasks: [task, ...state.tasks] });
-  store.log('대체 원료 사용 승인 거절', `${candidate.id} 사용 차단 · 보완 시험 작업 생성`);
+  store.log('대체 원료 모의 승인 거절', `${candidate.id} 시연 거절 · 보완 시험 작업 생성`);
   paint();
-  toast('사용을 차단하고 보완 작업을 생성했습니다');
+  toast('모의 거절 · 브라우저에 보완 작업을 생성했습니다');
 }
 
 $$('.nav-btn').forEach(button => button.onclick = () => openView(button.dataset.view));
@@ -83,10 +83,10 @@ $('#supply').oninput = event => { store.patch({ supply: Number(event.target.valu
 $('#runBtn').onclick = () => {
   const state = store.get();
   const impact = impacts(state);
-  store.patch({ ran: true, status: impact.shortage ? '대체 조달 검토' : '재평가 완료' });
-  store.log('스트레스 테스트 실행', `납기 지연 ${state.delay}일 · 공급 ${state.supply}% · 예상 공백 ${impact.shortage}일`);
+  store.patch({ ran: true, status: impact.exposureDays ? '대체 조달 검토' : '재평가 완료' });
+  store.log('스트레스 테스트 실행', `발주 지연 ${state.delay}일 · 충족 ${state.supply}% · 재고 노출 ${impact.exposureDays}일`);
   paint();
-  toast('위험과 후보 점수를 다시 계산했습니다');
+  toast('재고 노출과 미공급 발주액을 다시 계산했습니다');
 };
 $('#resetBtn').onclick = () => { store.resetDecision(); paint(); toast('입력 조건을 초기화했습니다'); };
 $('#approveBtn').onclick = approve;

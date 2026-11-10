@@ -1,7 +1,7 @@
 export const candidates = [
-  { id: 'ALT-B1', name: '동등 규격 후보 A', quality: 94, lead: 86, cost: 72, resilience: 88, price: 12, days: 18 },
-  { id: 'ALT-B2', name: '국내 공급 후보 B', quality: 88, lead: 96, cost: 80, resilience: 95, price: 8, days: 9 },
-  { id: 'ALT-B3', name: '저비용 후보 C', quality: 79, lead: 73, cost: 96, resilience: 68, price: -6, days: 28 }
+  { id: 'ALT-B1', name: '동등 규격 후보 A' },
+  { id: 'ALT-B2', name: '국내 공급 후보 B' },
+  { id: 'ALT-B3', name: '저비용 후보 C' }
 ];
 
 export const evidence = [
