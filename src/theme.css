@@ -62,3 +62,33 @@ h1,h2,p { margin-top:0; }h1 { margin-bottom:7px; color:#17202c; font-size:clamp(
 #workbench .scenario-btn { min-height:33px; }
 #workbench .candidate { min-height:62px; }
 #workbench .check { min-height:40px; }
+/* Bright workspace: keep the new information layout without a dark hero. */
+body,.workspace,.content { background:#fff; }
+.overview-v2 .hero-story { border:1px solid #dfe6ef; background:linear-gradient(135deg,#fff 30%,#f9fbff); color:#1c293b; box-shadow:0 2px 10px #2037530a; }
+.overview-v2 .hero-story::after { border-color:#dce6f7; box-shadow:0 0 0 70px #eff4fc9c,0 0 0 145px #f5f8fdab; }
+.overview-v2 .hero-story::after { z-index:0; }
+.overview-v2 .hero-stats { z-index:1; }
+.overview-v2 .hero-eyebrow { color:#5d76b4; }
+.overview-v2 .hero-eyebrow .pulse-dot { background:#5375c4; box-shadow:0 0 0 3px #e5ecfa; }
+.overview-v2 .hero-story h1 { color:#19273a; }
+.overview-v2 .hero-story h1 em { color:#536fc0; }
+.overview-v2 .hero-story p { color:#66768a; }
+.overview-v2 .hero-actions .ui-button { border-color:#d6dfeb; background:#fff; color:#445777; }
+.overview-v2 .hero-actions .ui-button:hover { background:#f3f6fc; }
+.overview-v2 .hero-actions .ui-button-primary { border-color:#2f4f9d; background:#2f4f9d; color:#fff; }
+.overview-v2 .hero-actions .ui-button-primary:hover { background:#3b5dae; }
+.overview-v2 .hero-stats { border-top:1px solid #e5ebf3; background:#f9fbfe; }
+.overview-v2 .hero-stats > div + div { border-left-color:#e3e9f1; }
+.overview-v2 .hero-stats span { color:#8796a9; }
+.overview-v2 .hero-stats strong { color:#25344a; }
+.overview-v2 .hero-stats small { color:#8c9aab; }
+.overview-v2 .hero-brief.ui-card { border-color:#dfe7f5; background:#f6f8fd; }
+.overview-v2 .brief-label { color:#627bb0; }
+.overview-v2 .brief-label span { border-color:#d7e0f1; }
+.overview-v2 .hero-brief h2 { color:#253754; }
+.overview-v2 .hero-brief p { color:#7485a0; }
+.overview-v2 .brief-checks > div { border-top-color:#dce4f1; }
+.overview-v2 .brief-checks span { color:#8796ad; }
+.overview-v2 .brief-checks strong { color:#3d5275; }
+.overview-v2 .brief-open.ui-button { border-color:#d2ddef; background:#fff; color:#3e5eaa; }
+.overview-v2 .brief-open.ui-button:hover { background:#edf2fc; }
