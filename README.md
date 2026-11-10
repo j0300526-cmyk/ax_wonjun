@@ -163,7 +163,13 @@ Ho·Xu·Dey(2010)는 공급사 선택에 다기준 평가가 필요함을 정리
 
 ```text
 index.html       화면 구조
-modules/         기록 기반 산식, 화면 렌더링, 시연 상태
+app.js           모듈 조립과 첫 렌더링
+modules/actions.js    시나리오·승인·작업 상태 변경
+modules/events.js     고정 화면의 입력 이벤트 연결
+modules/view/          개요·승인 판단·이력 화면 렌더링과 DOM 도구
+modules/render.js     화면 렌더링 조립
+modules/domain.js     기록 기반 산식과 승인 조건
+modules/state.js      브라우저 시연 상태 저장
 scripts/         원본 CSV 대조 및 정적 자산 빌드
 axhub.yaml       AXHub 정적 배포 설정
 README.md        문제·해결·시연·데이터 설명

@@ -1,5 +1,5 @@
 import { impacts, missingEvidence, selectedCandidate } from './domain.js';
-import { $, $$ } from './render.js';
+import { $, $$ } from './view/dom.js';
 import { icon } from './icons.js';
 
 function reply(state, query) {

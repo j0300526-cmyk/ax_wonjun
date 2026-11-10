@@ -10,7 +10,13 @@ const output = new URL('../dist/', import.meta.url);
 if (JSON.stringify(await deriveDermSkus()) !== JSON.stringify(dermSkus)) {
   throw new Error('가상 데이터룸과 화면의 재고·발주 입력이 다릅니다.');
 }
-const assets = ['styles.css', 'app.js', 'modules/data.js', 'modules/observations.js', 'modules/domain.js', 'modules/state.js', 'modules/render.js', 'modules/copilot.js', 'modules/icons.js'];
+const assets = [
+  'styles.css', 'app.js',
+  'modules/data.js', 'modules/observations.js', 'modules/domain.js', 'modules/state.js',
+  'modules/actions.js', 'modules/events.js', 'modules/copilot.js', 'modules/icons.js',
+  'modules/render.js', 'modules/view/dom.js', 'modules/view/decision.js',
+  'modules/view/overview.js', 'modules/view/history.js'
+];
 const contents = await Promise.all(assets.map(file => readFile(new URL(file, root))));
 const fingerprint = createHash('sha256')
   .update(contents.reduce((all, content) => Buffer.concat([all, content]), Buffer.alloc(0)))
