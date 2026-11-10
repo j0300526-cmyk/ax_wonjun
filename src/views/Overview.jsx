@@ -1,6 +1,7 @@
 import { evidence } from '../../modules/data.js';
 import { impacts } from '../../modules/domain.js';
 import Icon from '../components/Icon.jsx';
+import { Card } from '@blueprintjs/core';
 
 const scenarios = [
   ['normal', '기본 운영', '지연 0일 · 공급 100%', 'shield', 'green'],
@@ -10,7 +11,7 @@ const scenarios = [
 ];
 
 function Metric({ label, value, unit, note, source = '계산값' }) {
-  return <article className="metric-card"><div className="metric-top"><span>{label}</span><span className={`source ${source === '가상 기록' ? 'original' : 'calc'}`}>{source}</span></div><div className="metric-main"><strong>{value}</strong><span>{unit}</span></div><div className="metric-foot">{note}</div></article>;
+  return <Card className="metric-card"><div className="metric-top"><span>{label}</span><span className={`source ${source === '가상 기록' ? 'original' : 'calc'}`}>{source}</span></div><div className="metric-main"><strong>{value}</strong><span>{unit}</span></div><div className="metric-foot">{note}</div></Card>;
 }
 
 function DependencyPanel() {

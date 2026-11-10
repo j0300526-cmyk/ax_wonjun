@@ -25,7 +25,7 @@ npm test
 - `scripts/source-data.mjs`, `scripts/check-data.mjs`: 데이터룸 입력 재산출 및 빌드 검증
 - `scripts/build-react.mjs`: esbuild 정적 묶음
 
-UI는 React 19, TanStack Table, Radix Dialog, Lucide React를 사용합니다. 외부 디자인 저장소 코드를 복사하지 않았습니다.
+UI는 React 19와 [Palantir Blueprint](https://github.com/palantir/blueprint)의 Card, Button, Tag, HTMLTable을 사용합니다. 공급망 관제센터의 어두운 데스크톱 테마는 `src/theme.css`에서 새로 정의했습니다. 표의 검색·정렬·페이지 이동은 TanStack Table, AI 설명 패널의 접근성은 Radix Dialog, 아이콘은 Lucide React를 사용합니다. shadcn/ui와 Vercel Chatbot은 구성 참고용이며 해당 저장소의 코드를 복사하지 않았습니다.
 
 ## 판단의 범위
 
